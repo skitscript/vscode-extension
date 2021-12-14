@@ -1,6 +1,7 @@
 {
   "name": "skitscript",
   "description": "Adds support for Skitscript documents to Visual Studio Code.",
+  "icon": "./icon.png",
   "version": "0.0.0",
   "engines": {
     "vscode": "^1.63.0"
