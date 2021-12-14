@@ -6,3 +6,5 @@ Adds support for Skitscript documents to Visual Studio Code.
 
 You may be prompted to install this extension on opening a file with an
 extension of `.skitscript`.
+
+Alternatively, click [here](vscode:extension/skitscript.skitscript) to install it in your local copy of Visual Studio Code.
