@@ -35,5 +35,5 @@ jobs:
     - run: vsce login skitscript
       env:
         VSCE_STORE: file
-        VSCE_PAT: ${{ secrets.NPM_TOKEN }}
+        VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
     - run: vsce publish ${GITHUB_REF/refs\\/tags\\/v/}
