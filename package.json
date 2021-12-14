@@ -40,6 +40,7 @@
       }
     ]
   },
+  "publisher": "skitscript",
   "devDependencies": {
     "cpy-cli": "3.1.1",
     "del-cli": "4.0.1",

@@ -32,8 +32,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: npm i -g vsce
-    - run: vsce login skitscript
-      env:
-        VSCE_STORE: file
-        VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
-    - run: vsce publish ${GITHUB_REF/refs\\/tags\\/v/}
+    - run: "sed -i \"s/\\\"version\\\": \\\"0.0.0\\\",/\\\"version\\\": \\\"${GITHUB_REF/refs\\/tags\\/v/}\\\",/g\" package.json"
+    - run: vsce publish -p ${{ secrets.VSCE_TOKEN }}
