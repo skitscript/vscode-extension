@@ -1,6 +1,8 @@
 >Example Character is Example  EmoTe.
 #^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
-#                 ^^^^ text.skitscript
+#                 ^ text.skitscript
+#                  ^^ text.skitscript keyword.other.is
+#                    ^ text.skitscript
 #                     ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
 #                                   ^^ text.skitscript keyword.operator.period.skitscript
 >

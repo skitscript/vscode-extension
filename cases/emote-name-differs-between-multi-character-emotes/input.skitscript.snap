@@ -4,7 +4,9 @@
 #                    ^^^ text.skitscript keyword.operator.and
 #                       ^ text.skitscript
 #                        ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
-#                                           ^^^^^ text.skitscript
+#                                           ^ text.skitscript
+#                                            ^^^ text.skitscript keyword.other.are
+#                                               ^ text.skitscript
 #                                                ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
 #                                                              ^^ text.skitscript keyword.operator.period.skitscript
 >
@@ -14,7 +16,9 @@
 #                    ^^^ text.skitscript keyword.operator.and
 #                       ^ text.skitscript
 #                        ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
-#                                           ^^^^^ text.skitscript
+#                                           ^ text.skitscript
+#                                            ^^^ text.skitscript keyword.other.are
+#                                               ^ text.skitscript
 #                                                ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
 #                                                             ^^ text.skitscript keyword.operator.period.skitscript
 >
