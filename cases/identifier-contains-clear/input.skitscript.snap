@@ -1,0 +1,7 @@
+>Location: Example Clear Background.
+#^^^^^^^^ text.skitscript keyword.other.location
+#        ^ text.skitscript keyword.operator.colon.skitscript
+#         ^ text.skitscript
+#          ^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                  ^^ text.skitscript keyword.operator.period.skitscript
+>

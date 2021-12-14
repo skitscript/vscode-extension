@@ -1,0 +1,21 @@
+>~ Example Label ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  Example line.
+#^^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to EXAmple     laBel.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                         ^^ text.skitscript keyword.operator.period.skitscript
+>

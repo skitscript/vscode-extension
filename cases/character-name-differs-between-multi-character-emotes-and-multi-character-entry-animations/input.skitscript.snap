@@ -1,0 +1,28 @@
+>Example Character A, Example  CharActer B and Example Character C are Example Emote.
+#^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                   ^ text.skitscript punctuation.comma.skitscript
+#                    ^ text.skitscript
+#                     ^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                         ^ text.skitscript
+#                                          ^^^ text.skitscript keyword.operator.and
+#                                             ^ text.skitscript
+#                                              ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                 ^^^^^ text.skitscript
+#                                                                      ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                   ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Example Character A, exAMple CHARacter B and Example Character C enter left.
+#^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                   ^ text.skitscript punctuation.comma.skitscript
+#                    ^ text.skitscript
+#                     ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                        ^ text.skitscript
+#                                         ^^^ text.skitscript keyword.operator.and
+#                                            ^ text.skitscript
+#                                             ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                ^ text.skitscript
+#                                                                 ^^^^^ text.skitscript keyword.other.enter
+#                                                                      ^ text.skitscript
+#                                                                       ^^^^ text.skitscript variable.other.skitscript
+#                                                                           ^^ text.skitscript keyword.operator.period.skitscript
+>

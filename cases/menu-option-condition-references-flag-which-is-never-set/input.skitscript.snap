@@ -1,0 +1,42 @@
+>~ Example Label ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>Set Example Flag A and Example Flag C.
+#^^^ text.skitscript keyword.other.set
+#   ^ text.skitscript
+#    ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                  ^ text.skitscript
+#                   ^^^ text.skitscript keyword.operator.and
+#                      ^ text.skitscript
+#                       ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                     ^^ text.skitscript keyword.operator.period.skitscript
+>
+>> Example option leads to Example Label when Example Flag A, Example Flag B and Example Flag C.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^^^^ text.skitscript markup.other.skitscript
+#                ^ text.skitscript
+#                 ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                      ^ text.skitscript
+#                       ^^ text.skitscript keyword.control.to.skitscript
+#                         ^ text.skitscript
+#                          ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                       ^ text.skitscript
+#                                        ^^^^ text.skitscript keyword.control.when
+#                                            ^ text.skitscript
+#                                             ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                           ^ text.skitscript punctuation.comma.skitscript
+#                                                            ^ text.skitscript
+#                                                             ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                           ^ text.skitscript
+#                                                                            ^^^ text.skitscript keyword.operator.and
+#                                                                               ^ text.skitscript
+#                                                                                ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                              ^^ text.skitscript keyword.operator.period.skitscript
+>

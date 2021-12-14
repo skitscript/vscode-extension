@@ -1,0 +1,12 @@
+>Example  CharActer enters from left.
+#^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                  ^ text.skitscript
+#                   ^^^^^^ text.skitscript keyword.other.enters
+#                         ^ text.skitscript
+#                          ^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                   ^^ text.skitscript keyword.operator.period.skitscript
+>
+>exAMple CHARacter:
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript keyword.operator.colon.skitscript
+>

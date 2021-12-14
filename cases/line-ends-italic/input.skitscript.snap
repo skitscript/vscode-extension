@@ -1,0 +1,13 @@
+>  Example *line which ends italic.
+#^^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^ text.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#           ^^^^ text.skitscript markup.italic.skitscript markup.other.skitscript
+#               ^ text.skitscript markup.italic.skitscript
+#                ^^^^^ text.skitscript markup.italic.skitscript markup.other.skitscript
+#                     ^ text.skitscript markup.italic.skitscript
+#                      ^^^^ text.skitscript markup.italic.skitscript markup.other.skitscript
+#                          ^ text.skitscript markup.italic.skitscript
+#                           ^^^^^^^ text.skitscript markup.italic.skitscript markup.other.skitscript
+>

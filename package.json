@@ -1,0 +1,56 @@
+{
+  "name": "skitscript",
+  "description": "Adds support for Skitscript documents to Visual Studio Code.",
+  "version": "0.0.0",
+  "engines": {
+    "vscode": "^1.63.0"
+  },
+  "engineStrict": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skitscript/parser-nodejs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false,
+  "license": "MIT",
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "skitscript",
+        "aliases": [
+          "Skitscript",
+          "skitscript"
+        ],
+        "extensions": [
+          ".skitscript"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "skitscript",
+        "scopeName": "text.skitscript",
+        "path": "./skitscript.tmLanguage.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "cpy-cli": "3.1.1",
+    "del-cli": "4.0.1",
+    "npm-run-all": "^4.1.5",
+    "vscode-tmgrammar-test": "0.0.11"
+  },
+  "scripts": {
+    "test": "npm-run-all testCleanCases testCopyCases testSnapshot",
+    "testCleanCases": "del-cli \"cases/*/input.skitscript\"",
+    "testCopyCases": "cpy --parents --cwd=\"submodules/skitscript/parser-test-suite/cases\" \"*/input.skitscript\" \"../../../../cases\"",
+    "testSnapshot": "vscode-tmgrammar-snap --scope text.skitscript --grammar \"skitscript.tmLanguage.json\" --testcases \"cases/*/input.skitscript\""
+  },
+  "sideEffects": false
+}

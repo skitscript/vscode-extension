@@ -1,0 +1,200 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Skitscript",
+  "patterns": [
+    {
+      "begin": "^\\s+",
+      "end": "$",
+      "patterns": [
+        {
+          "include": "#formatted"
+        }
+      ]
+    },
+    {
+      "begin": "^(>)\\s+",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.menuoption.skitscript"
+        }
+      },
+      "end": "(?i)\\b(leads)\\s+(to)\\b(?!.*\\bleads\\s+to\\b)",
+      "endCaptures": {
+        "1": {
+          "name": "keyword.control.leads.skitscript"
+        },
+        "2": {
+          "name": "keyword.control.to.skitscript"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#formatted"
+        }
+      ]
+    },
+    {
+      "match": ",",
+      "name": "punctuation.comma.skitscript"
+    },
+    {
+      "match": "\\(",
+      "name": "keyword.operator.parenthesis.opening.skitscript"
+    },
+    {
+      "match": "\\)",
+      "name": "keyword.operator.parenthesis.closing.skitscript"
+    },
+    {
+      "match": ":",
+      "name": "keyword.operator.colon.skitscript"
+    },
+    {
+      "match": "~",
+      "name": "keyword.operator.tilde.skitscript"
+    },
+    {
+      "match": "\\.\\s*$",
+      "name": "keyword.operator.period.skitscript"
+    },
+    {
+      "match": "(?i)\\blocation\\b",
+      "name": "keyword.other.location"
+    },
+    {
+      "match": "(?i)\\bleads\\b",
+      "name": "keyword.control.leads"
+    },
+    {
+      "match": "(?i)\\bto\\b",
+      "name": "keyword.control.to"
+    },
+    {
+      "match": "(?i)\\bset\\b",
+      "name": "keyword.other.set"
+    },
+    {
+      "match": "(?i)\\bclear\\b",
+      "name": "keyword.other.clear"
+    },
+    {
+      "match": "(?i)\\bjump\\b",
+      "name": "keyword.control.jump"
+    },
+    {
+      "match": "(?i)\\bwhen\\b",
+      "name": "keyword.control.when"
+    },
+    {
+      "match": "(?i)\\bnot\\b",
+      "name": "keyword.operator.not"
+    },
+    {
+      "match": "(?i)\\bor\\b",
+      "name": "keyword.operator.or"
+    },
+    {
+      "match": "(?i)\\band\\b",
+      "name": "keyword.operator.and"
+    },
+    {
+      "match": "(?i)\\benter\\b",
+      "name": "keyword.other.enter"
+    },
+    {
+      "match": "(?i)\\benters\\b",
+      "name": "keyword.other.enters"
+    },
+    {
+      "match": "(?i)\\bexit\\b",
+      "name": "keyword.other.exit"
+    },
+    {
+      "match": "(?i)\\bexits\\b",
+      "name": "keyword.other.exits"
+    },
+    {
+      "match": "\\b(?=.*[^!?'\"{}@*\/\\\\&#%`+<=>|$.\\-\\s].*)(?:(?!(?:and|or|when|not|is|are|enters|enter|exits|exit|leads|to|set|clear|jump)\\b)[^,()\\s:~]+)(?:\\s+(?!(?:and|or|when|not|is|are|enters|enter|exits|exit|leads|to|set|clear|jump)\\b)[^,()\\s:~]+)*\\b",
+      "name": "variable.other.skitscript"
+    }
+  ],
+  "repository": {
+    "formatted": {
+      "patterns": [
+        {
+          "match": "\\\\\\*",
+          "name": "constant.character.escape.markdown"
+        },
+        {
+          "match": "\\\\`",
+          "name": "constant.character.escape.markdown"
+        },
+        {
+          "match": "\\\\\\\\",
+          "name": "constant.character.escape.markdown"
+        },
+        {
+          "begin": "(\\*\\*)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.bold.skitscript"
+            }
+          },
+          "end": "(?<=\\S)(\\*\\*)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.bold.skitscript"
+            }
+          },
+          "name": "markup.bold.skitscript",
+          "patterns": [
+            {
+              "include": "#formatted"
+            }
+          ]
+        },
+        {
+          "begin": "(\\*)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.italic.skitscript"
+            }
+          },
+          "end": "(?<=\\S)(\\*)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.italic.skitscript"
+            }
+          },
+          "name": "markup.italic.skitscript",
+          "patterns": [
+            {
+              "include": "#formatted"
+            }
+          ]
+        },
+        {
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.raw.skitscript"
+            },
+            "3": {
+              "name": "punctuation.definition.raw.skitscript"
+            }
+          },
+          "match": "(`)(?:\\\\\\\\|\\\\`|[^\\\\`\\r\\n])*(`)",
+          "name": "markup.inline.raw.string.skitscript"
+        },
+        {
+          "match": "[^*\\s\\\\`]+",
+          "name": "markup.other.skitscript"
+        },
+        {
+          "match": "\\S",
+          "name": "markup.other.skitscript"
+        }
+      ]
+    }
+  },
+  "scopeName": "text.skitscript"
+}

@@ -1,0 +1,36 @@
+>~ Example Label ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>Set Example Flag A, Example Flag B and Example Flag C.
+#^^^ text.skitscript keyword.other.set
+#   ^ text.skitscript
+#    ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                  ^ text.skitscript punctuation.comma.skitscript
+#                   ^ text.skitscript
+#                    ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                  ^ text.skitscript
+#                                   ^^^ text.skitscript keyword.operator.and
+#                                      ^ text.skitscript
+#                                       ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                     ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Jump to Example Label when Example Flag A or Example Flag C.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                     ^ text.skitscript
+#                      ^^^^ text.skitscript keyword.control.when
+#                          ^ text.skitscript
+#                           ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                         ^ text.skitscript
+#                                          ^^ text.skitscript keyword.operator.or
+#                                            ^ text.skitscript
+#                                             ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                           ^^ text.skitscript keyword.operator.period.skitscript
+>

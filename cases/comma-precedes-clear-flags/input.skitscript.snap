@@ -1,0 +1,15 @@
+>Clear , Example Flag A, Example Flag B and Example Flag C.
+#^^^^^ text.skitscript keyword.other.clear
+#     ^ text.skitscript
+#      ^ text.skitscript punctuation.comma.skitscript
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                      ^ text.skitscript punctuation.comma.skitscript
+#                       ^ text.skitscript
+#                        ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                      ^ text.skitscript
+#                                       ^^^ text.skitscript keyword.operator.and
+#                                          ^ text.skitscript
+#                                           ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                         ^^ text.skitscript keyword.operator.period.skitscript
+>

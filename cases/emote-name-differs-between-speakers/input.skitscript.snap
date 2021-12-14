@@ -1,0 +1,16 @@
+>Example Character (Example  EmoTe):
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript
+#                  ^ text.skitscript keyword.operator.parenthesis.opening.skitscript
+#                   ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                 ^ text.skitscript keyword.operator.parenthesis.closing.skitscript
+#                                  ^ text.skitscript keyword.operator.colon.skitscript
+>
+>Example Character (exAMple EMOte):
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript
+#                  ^ text.skitscript keyword.operator.parenthesis.opening.skitscript
+#                   ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                ^ text.skitscript keyword.operator.parenthesis.closing.skitscript
+#                                 ^ text.skitscript keyword.operator.colon.skitscript
+>

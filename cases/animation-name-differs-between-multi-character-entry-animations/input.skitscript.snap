@@ -1,0 +1,24 @@
+>Example Character A and Example Character B enter Example AnimAtion.
+#^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                   ^ text.skitscript
+#                    ^^^ text.skitscript keyword.operator.and
+#                       ^ text.skitscript
+#                        ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                           ^ text.skitscript
+#                                            ^^^^^ text.skitscript keyword.other.enter
+#                                                 ^ text.skitscript
+#                                                  ^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                   ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Example Character A and Example Character B enter exAMple ANIMation.
+#^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                   ^ text.skitscript
+#                    ^^^ text.skitscript keyword.operator.and
+#                       ^ text.skitscript
+#                        ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                           ^ text.skitscript
+#                                            ^^^^^ text.skitscript keyword.other.enter
+#                                                 ^ text.skitscript
+#                                                  ^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                   ^^ text.skitscript keyword.operator.period.skitscript
+>

@@ -1,0 +1,16 @@
+>Example Character enters Example AnimAtion.
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^^^ text.skitscript keyword.other.enters
+#                        ^ text.skitscript
+#                         ^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                          ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Example Character enters exAMple ANIMation.
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^^^ text.skitscript keyword.other.enters
+#                        ^ text.skitscript
+#                         ^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                          ^^ text.skitscript keyword.operator.period.skitscript
+>

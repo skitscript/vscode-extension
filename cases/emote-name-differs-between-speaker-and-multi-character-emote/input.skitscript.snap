@@ -1,0 +1,18 @@
+>Example Character (Example  EmoTe):
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript
+#                  ^ text.skitscript keyword.operator.parenthesis.opening.skitscript
+#                   ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                 ^ text.skitscript keyword.operator.parenthesis.closing.skitscript
+#                                  ^ text.skitscript keyword.operator.colon.skitscript
+>
+>Example Character A and Example Character B are exAMple EMOte.
+#^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                   ^ text.skitscript
+#                    ^^^ text.skitscript keyword.operator.and
+#                       ^ text.skitscript
+#                        ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                           ^^^^^ text.skitscript
+#                                                ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                             ^^ text.skitscript keyword.operator.period.skitscript
+>

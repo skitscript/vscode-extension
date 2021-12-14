@@ -1,0 +1,10 @@
+>Example  CharActer is Example Emote.
+#^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                  ^^^^ text.skitscript
+#                      ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                   ^^ text.skitscript keyword.operator.period.skitscript
+>
+>exAMple CHARacter:
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript keyword.operator.colon.skitscript
+>
