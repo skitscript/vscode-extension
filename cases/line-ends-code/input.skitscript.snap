@@ -1,0 +1,15 @@
+>  Example `line which ends as code.
+#^^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^ text.skitscript markup.other.skitscript
+#           ^^^^ text.skitscript markup.other.skitscript
+#               ^ text.skitscript
+#                ^^^^^ text.skitscript markup.other.skitscript
+#                     ^ text.skitscript
+#                      ^^^^ text.skitscript markup.other.skitscript
+#                          ^ text.skitscript
+#                           ^^ text.skitscript markup.other.skitscript
+#                             ^ text.skitscript
+#                              ^^^^^ text.skitscript markup.other.skitscript
+>

@@ -1,0 +1,16 @@
+>> Example Menu Option leads to Example Label.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^^^^^ text.skitscript markup.other.skitscript
+#                     ^ text.skitscript
+#                      ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                           ^ text.skitscript
+#                            ^^ text.skitscript keyword.control.to.skitscript
+#                              ^ text.skitscript
+#                               ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                            ^^ text.skitscript keyword.operator.period.skitscript
+>

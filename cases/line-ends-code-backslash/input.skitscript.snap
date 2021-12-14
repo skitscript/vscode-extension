@@ -1,0 +1,19 @@
+>  Example line with `code which ends unexpectedly \
+#^^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^^^ text.skitscript markup.other.skitscript
+#                   ^ text.skitscript
+#                    ^ text.skitscript markup.other.skitscript
+#                     ^^^^ text.skitscript markup.other.skitscript
+#                         ^ text.skitscript
+#                          ^^^^^ text.skitscript markup.other.skitscript
+#                               ^ text.skitscript
+#                                ^^^^ text.skitscript markup.other.skitscript
+#                                    ^ text.skitscript
+#                                     ^^^^^^^^^^^^ text.skitscript markup.other.skitscript
+#                                                 ^ text.skitscript
+#                                                  ^ text.skitscript markup.other.skitscript
+>

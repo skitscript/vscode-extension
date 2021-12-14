@@ -1,0 +1,54 @@
+>Jump to Example Label.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                     ^^ text.skitscript keyword.operator.period.skitscript
+>
+>  Example line A.
+#^^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^ text.skitscript markup.other.skitscript
+>  Example line B.
+#^^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^ text.skitscript markup.other.skitscript
+>
+>> Example Option Name leads to Example Label.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^^^^ text.skitscript markup.other.skitscript
+#                ^ text.skitscript
+#                 ^^^^ text.skitscript markup.other.skitscript
+#                     ^ text.skitscript
+#                      ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                           ^ text.skitscript
+#                            ^^ text.skitscript keyword.control.to.skitscript
+#                              ^ text.skitscript
+#                               ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Example Label ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  Example line C.
+#^^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^ text.skitscript markup.other.skitscript
+>

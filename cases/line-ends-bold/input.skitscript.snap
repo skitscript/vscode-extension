@@ -1,0 +1,13 @@
+>  Example **line which ends bold.
+#^^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#            ^^^^ text.skitscript markup.bold.skitscript markup.other.skitscript
+#                ^ text.skitscript markup.bold.skitscript
+#                 ^^^^^ text.skitscript markup.bold.skitscript markup.other.skitscript
+#                      ^ text.skitscript markup.bold.skitscript
+#                       ^^^^ text.skitscript markup.bold.skitscript markup.other.skitscript
+#                           ^ text.skitscript markup.bold.skitscript
+#                            ^^^^^ text.skitscript markup.bold.skitscript markup.other.skitscript
+>

@@ -1,0 +1,15 @@
+>~ Example Label ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>Jump to Example Label.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                     ^^ text.skitscript keyword.operator.period.skitscript
+>

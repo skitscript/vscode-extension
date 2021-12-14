@@ -1,0 +1,12 @@
+>Example  CharActer exits left.
+#^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                  ^ text.skitscript
+#                   ^^^^^ text.skitscript keyword.other.exits
+#                        ^ text.skitscript
+#                         ^^^^ text.skitscript variable.other.skitscript
+#                             ^^ text.skitscript keyword.operator.period.skitscript
+>
+>exAMple CHARacter:
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript keyword.operator.colon.skitscript
+>

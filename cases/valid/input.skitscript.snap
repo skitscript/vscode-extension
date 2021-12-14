@@ -1,0 +1,1250 @@
+>Location: Podium.
+#^^^^^^^^ text.skitscript keyword.other.location
+#        ^ text.skitscript keyword.operator.colon.skitscript
+#         ^ text.skitscript
+#          ^^^^^^ text.skitscript variable.other.skitscript
+#                ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Mr. Explainer enters from the left.
+#^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#             ^ text.skitscript
+#              ^^^^^^ text.skitscript keyword.other.enters
+#                    ^ text.skitscript
+#                     ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                  ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Mr. Explainer:
+#^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#             ^ text.skitscript keyword.operator.colon.skitscript
+>  By default, characters display the "neutral" emote.
+#^^ text.skitscript
+#  ^^ text.skitscript markup.other.skitscript
+#    ^ text.skitscript
+#     ^^^^^^^^ text.skitscript markup.other.skitscript
+#             ^ text.skitscript
+#              ^^^^^^^^^^ text.skitscript markup.other.skitscript
+#                        ^ text.skitscript
+#                         ^^^^^^^ text.skitscript markup.other.skitscript
+#                                ^ text.skitscript
+#                                 ^^^ text.skitscript markup.other.skitscript
+#                                    ^ text.skitscript
+#                                     ^^^^^^^^^ text.skitscript markup.other.skitscript
+#                                              ^ text.skitscript
+#                                               ^^^^^^ text.skitscript markup.other.skitscript
+>  Any number of lines of dialog can be given following the name of a character (the speaker).
+#^^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^^^^^ text.skitscript markup.other.skitscript
+#            ^ text.skitscript
+#             ^^ text.skitscript markup.other.skitscript
+#               ^ text.skitscript
+#                ^^^^^ text.skitscript markup.other.skitscript
+#                     ^ text.skitscript
+#                      ^^ text.skitscript markup.other.skitscript
+#                        ^ text.skitscript
+#                         ^^^^^^ text.skitscript markup.other.skitscript
+#                               ^ text.skitscript
+#                                ^^^ text.skitscript markup.other.skitscript
+#                                   ^ text.skitscript
+#                                    ^^ text.skitscript markup.other.skitscript
+#                                      ^ text.skitscript
+#                                       ^^^^^ text.skitscript markup.other.skitscript
+#                                            ^ text.skitscript
+#                                             ^^^^^^^^^ text.skitscript markup.other.skitscript
+#                                                      ^ text.skitscript
+#                                                       ^^^ text.skitscript markup.other.skitscript
+#                                                          ^ text.skitscript
+#                                                           ^^^^ text.skitscript markup.other.skitscript
+#                                                               ^ text.skitscript
+#                                                                ^^ text.skitscript markup.other.skitscript
+#                                                                  ^ text.skitscript
+#                                                                   ^ text.skitscript markup.other.skitscript
+#                                                                    ^ text.skitscript
+#                                                                     ^^^^^^^^^ text.skitscript markup.other.skitscript
+#                                                                              ^ text.skitscript
+#                                                                               ^^^^ text.skitscript markup.other.skitscript
+#                                                                                   ^ text.skitscript
+#                                                                                    ^^^^^^^^^ text.skitscript markup.other.skitscript
+>  Syntax *similar **to** markdown* can be *\\used.*
+#^^ text.skitscript
+#  ^^^^^^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^ text.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#          ^^^^^^^ text.skitscript markup.italic.skitscript markup.other.skitscript
+#                 ^ text.skitscript markup.italic.skitscript
+#                  ^^ text.skitscript markup.italic.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#                    ^^ text.skitscript markup.italic.skitscript markup.bold.skitscript markup.other.skitscript
+#                      ^^ text.skitscript markup.italic.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#                        ^ text.skitscript markup.italic.skitscript
+#                         ^^^^^^^^ text.skitscript markup.italic.skitscript markup.other.skitscript
+#                                 ^ text.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#                                  ^ text.skitscript
+#                                   ^^^ text.skitscript markup.other.skitscript
+#                                      ^ text.skitscript
+#                                       ^^ text.skitscript markup.other.skitscript
+#                                         ^ text.skitscript
+#                                          ^ text.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#                                           ^^ text.skitscript markup.italic.skitscript constant.character.escape.markdown
+#                                             ^^^^^ text.skitscript markup.italic.skitscript markup.other.skitscript
+#                                                  ^ text.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+>  This includes `inline \`code\\ segments` which can be inside ***`other-*sections* **formatted in other ways**`***.
+#^^ text.skitscript
+#  ^^^^ text.skitscript markup.other.skitscript
+#      ^ text.skitscript
+#       ^^^^^^^^ text.skitscript markup.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript markup.inline.raw.string.skitscript punctuation.definition.raw.skitscript
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript markup.inline.raw.string.skitscript
+#                                          ^ text.skitscript
+#                                           ^^^^^ text.skitscript markup.other.skitscript
+#                                                ^ text.skitscript
+#                                                 ^^^ text.skitscript markup.other.skitscript
+#                                                    ^ text.skitscript
+#                                                     ^^ text.skitscript markup.other.skitscript
+#                                                       ^ text.skitscript
+#                                                        ^^^^^^ text.skitscript markup.other.skitscript
+#                                                              ^ text.skitscript
+#                                                               ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#                                                                 ^ text.skitscript markup.bold.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#                                                                  ^ text.skitscript markup.bold.skitscript markup.italic.skitscript markup.inline.raw.string.skitscript punctuation.definition.raw.skitscript
+#                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript markup.bold.skitscript markup.italic.skitscript markup.inline.raw.string.skitscript
+#                                                                                                                ^ text.skitscript markup.bold.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#                                                                                                                 ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#                                                                                                                   ^ text.skitscript markup.other.skitscript
+>  All \*such\* \`syntax\` \*\*can\*\* be \\es\\\\caped.
+#^^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^ text.skitscript constant.character.escape.markdown
+#        ^^^^ text.skitscript markup.other.skitscript
+#            ^^ text.skitscript constant.character.escape.markdown
+#              ^ text.skitscript
+#               ^^ text.skitscript constant.character.escape.markdown
+#                 ^^^^^^ text.skitscript markup.other.skitscript
+#                       ^^ text.skitscript constant.character.escape.markdown
+#                         ^ text.skitscript
+#                          ^^ text.skitscript constant.character.escape.markdown
+#                            ^^ text.skitscript constant.character.escape.markdown
+#                              ^^^ text.skitscript markup.other.skitscript
+#                                 ^^ text.skitscript constant.character.escape.markdown
+#                                   ^^ text.skitscript constant.character.escape.markdown
+#                                     ^ text.skitscript
+#                                      ^^ text.skitscript markup.other.skitscript
+#                                        ^ text.skitscript
+#                                         ^^ text.skitscript constant.character.escape.markdown
+#                                           ^^ text.skitscript markup.other.skitscript
+#                                             ^^ text.skitscript constant.character.escape.markdown
+#                                               ^^ text.skitscript constant.character.escape.markdown
+#                                                 ^^^^^^ text.skitscript markup.other.skitscript
+>
+>Mrs. Elucidator enters from the right.
+#^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^^^^^^ text.skitscript keyword.other.enters
+#                      ^ text.skitscript
+#                       ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                     ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Mrs. Elucidator (proud):
+#^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript keyword.operator.parenthesis.opening.skitscript
+#                 ^^^^^ text.skitscript variable.other.skitscript
+#                      ^ text.skitscript keyword.operator.parenthesis.closing.skitscript
+#                       ^ text.skitscript keyword.operator.colon.skitscript
+>  The name of an emote can be specified alongside the name of the speaking character.
+#^^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^^^ text.skitscript markup.other.skitscript
+#          ^ text.skitscript
+#           ^^ text.skitscript markup.other.skitscript
+#             ^ text.skitscript
+#              ^^ text.skitscript markup.other.skitscript
+#                ^ text.skitscript
+#                 ^^^^^ text.skitscript markup.other.skitscript
+#                      ^ text.skitscript
+#                       ^^^ text.skitscript markup.other.skitscript
+#                          ^ text.skitscript
+#                           ^^ text.skitscript markup.other.skitscript
+#                             ^ text.skitscript
+#                              ^^^^^^^^^ text.skitscript markup.other.skitscript
+#                                       ^ text.skitscript
+#                                        ^^^^^^^^^ text.skitscript markup.other.skitscript
+#                                                 ^ text.skitscript
+#                                                  ^^^ text.skitscript markup.other.skitscript
+#                                                     ^ text.skitscript
+#                                                      ^^^^ text.skitscript markup.other.skitscript
+#                                                          ^ text.skitscript
+#                                                           ^^ text.skitscript markup.other.skitscript
+#                                                             ^ text.skitscript
+#                                                              ^^^ text.skitscript markup.other.skitscript
+#                                                                 ^ text.skitscript
+#                                                                  ^^^^^^^^ text.skitscript markup.other.skitscript
+#                                                                          ^ text.skitscript
+#                                                                           ^^^^^^^^^^ text.skitscript markup.other.skitscript
+>
+>Mr. Explainer is shocked.
+#^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#             ^^^^ text.skitscript
+#                 ^^^^^^^ text.skitscript variable.other.skitscript
+#                        ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Mr. Explainer:
+#^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#             ^ text.skitscript keyword.operator.colon.skitscript
+>  You can?  I've always used a stage direction!
+#^^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^^^ text.skitscript markup.other.skitscript
+#          ^^ text.skitscript
+#            ^^^^ text.skitscript markup.other.skitscript
+#                ^ text.skitscript
+#                 ^^^^^^ text.skitscript markup.other.skitscript
+#                       ^ text.skitscript
+#                        ^^^^ text.skitscript markup.other.skitscript
+#                            ^ text.skitscript
+#                             ^ text.skitscript markup.other.skitscript
+#                              ^ text.skitscript
+#                               ^^^^^ text.skitscript markup.other.skitscript
+#                                    ^ text.skitscript
+#                                     ^^^^^^^^^^ text.skitscript markup.other.skitscript
+>
+>Mr. Company enters from the left, surprised.
+#^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#           ^ text.skitscript
+#            ^^^^^^ text.skitscript keyword.other.enters
+#                  ^ text.skitscript
+#                   ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                ^ text.skitscript punctuation.comma.skitscript
+#                                 ^ text.skitscript
+#                                  ^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                           ^^ text.skitscript keyword.operator.period.skitscript
+>Mrs. Crowd enters from the right.
+#^^^^^^^^^^ text.skitscript variable.other.skitscript
+#          ^ text.skitscript
+#           ^^^^^^ text.skitscript keyword.other.enters
+#                 ^ text.skitscript
+#                  ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Mr. Explainer, Mrs. Elucidator, Mr. Company and Mrs. Crowd:
+#^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#             ^ text.skitscript punctuation.comma.skitscript
+#              ^ text.skitscript
+#               ^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                              ^ text.skitscript punctuation.comma.skitscript
+#                               ^ text.skitscript
+#                                ^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                           ^ text.skitscript
+#                                            ^^^ text.skitscript keyword.operator.and
+#                                               ^ text.skitscript
+#                                                ^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                          ^ text.skitscript keyword.operator.colon.skitscript
+>  Multiple people can speak simultaneously.
+#^^ text.skitscript
+#  ^^^^^^^^ text.skitscript markup.other.skitscript
+#          ^ text.skitscript
+#           ^^^^^^ text.skitscript markup.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^ text.skitscript markup.other.skitscript
+#                     ^ text.skitscript
+#                      ^^^^^ text.skitscript markup.other.skitscript
+#                           ^ text.skitscript
+#                            ^^^^^^^^^^^^^^^ text.skitscript markup.other.skitscript
+>  Now to hand over to our assistant for a menu demo...
+#^^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^^ text.skitscript markup.other.skitscript
+#             ^ text.skitscript
+#              ^^^^ text.skitscript markup.other.skitscript
+#                  ^ text.skitscript
+#                   ^^ text.skitscript markup.other.skitscript
+#                     ^ text.skitscript
+#                      ^^^ text.skitscript markup.other.skitscript
+#                         ^ text.skitscript
+#                          ^^^^^^^^^ text.skitscript markup.other.skitscript
+#                                   ^ text.skitscript
+#                                    ^^^ text.skitscript markup.other.skitscript
+#                                       ^ text.skitscript
+#                                        ^ text.skitscript markup.other.skitscript
+#                                         ^ text.skitscript
+#                                          ^^^^ text.skitscript markup.other.skitscript
+#                                              ^ text.skitscript
+#                                               ^^^^^^^ text.skitscript markup.other.skitscript
+>
+>Mr. Explainer and Mr. Company exit left, waving.
+#^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#             ^ text.skitscript
+#              ^^^ text.skitscript keyword.operator.and
+#                 ^ text.skitscript
+#                  ^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                             ^ text.skitscript
+#                              ^^^^ text.skitscript keyword.other.exit
+#                                  ^ text.skitscript
+#                                   ^^^^ text.skitscript variable.other.skitscript
+#                                       ^ text.skitscript punctuation.comma.skitscript
+#                                        ^ text.skitscript
+#                                         ^^^^^^ text.skitscript variable.other.skitscript
+#                                               ^^ text.skitscript keyword.operator.period.skitscript
+>Mrs. Elucidator and Mrs. Crowd exit right, waving.
+#^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^^^ text.skitscript keyword.operator.and
+#                   ^ text.skitscript
+#                    ^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                              ^ text.skitscript
+#                               ^^^^ text.skitscript keyword.other.exit
+#                                   ^ text.skitscript
+#                                    ^^^^^ text.skitscript variable.other.skitscript
+#                                         ^ text.skitscript punctuation.comma.skitscript
+#                                          ^ text.skitscript
+#                                           ^^^^^^ text.skitscript variable.other.skitscript
+#                                                 ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Location: !?'"{}@*/\&#%`   +<=>|$.-Interview!?'"{}@*/\&#%`   +<=>|$.-Room!?'"{}@*/\&#%`   +<=>|$.-.
+#^^^^^^^^ text.skitscript keyword.other.location
+#        ^ text.skitscript keyword.operator.colon.skitscript
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript
+#                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript
+#                                                                                                  ^^ text.skitscript keyword.operator.period.skitscript
+>
+>The Questioner enters from the bottom, eyebrow raised.
+#^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#              ^ text.skitscript
+#               ^^^^^^ text.skitscript keyword.other.enters
+#                     ^ text.skitscript
+#                      ^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                     ^ text.skitscript punctuation.comma.skitscript
+#                                      ^ text.skitscript
+#                                       ^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                     ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Menu ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^ text.skitscript variable.other.skitscript
+#      ^ text.skitscript
+#       ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>The Questioner:
+#^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#              ^ text.skitscript keyword.operator.colon.skitscript
+>  A list of options can be given, which can also be conditional:
+#^^ text.skitscript
+#  ^ text.skitscript markup.other.skitscript
+#   ^ text.skitscript
+#    ^^^^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^ text.skitscript markup.other.skitscript
+#           ^ text.skitscript
+#            ^^^^^^^ text.skitscript markup.other.skitscript
+#                   ^ text.skitscript
+#                    ^^^ text.skitscript markup.other.skitscript
+#                       ^ text.skitscript
+#                        ^^ text.skitscript markup.other.skitscript
+#                          ^ text.skitscript
+#                           ^^^^^^ text.skitscript markup.other.skitscript
+#                                 ^ text.skitscript
+#                                  ^^^^^ text.skitscript markup.other.skitscript
+#                                       ^ text.skitscript
+#                                        ^^^ text.skitscript markup.other.skitscript
+#                                           ^ text.skitscript
+#                                            ^^^^ text.skitscript markup.other.skitscript
+#                                                ^ text.skitscript
+#                                                 ^^ text.skitscript markup.other.skitscript
+#                                                   ^ text.skitscript
+#                                                    ^^^^^^^^^^^^ text.skitscript markup.other.skitscript
+>
+>> Reset leads to Reset.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^^^ text.skitscript markup.other.skitscript
+#       ^ text.skitscript
+#        ^^^^^ text.skitscript keyword.control.leads.skitscript
+#             ^ text.skitscript
+#              ^^ text.skitscript keyword.control.to.skitscript
+#                ^ text.skitscript
+#                 ^^^^^ text.skitscript variable.other.skitscript
+#                      ^^ text.skitscript keyword.operator.period.skitscript
+>> View state leads to State Viewer.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^^ text.skitscript markup.other.skitscript
+#      ^ text.skitscript
+#       ^^^^^ text.skitscript markup.other.skitscript
+#            ^ text.skitscript
+#             ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                  ^ text.skitscript
+#                   ^^ text.skitscript keyword.control.to.skitscript
+#                     ^ text.skitscript
+#                      ^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                  ^^ text.skitscript keyword.operator.period.skitscript
+>> Set *flag A* leads to Flag Setter A.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^ text.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#       ^^^^ text.skitscript markup.italic.skitscript markup.other.skitscript
+#           ^ text.skitscript markup.italic.skitscript
+#            ^ text.skitscript markup.italic.skitscript markup.other.skitscript
+#             ^ text.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#              ^ text.skitscript
+#               ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                    ^ text.skitscript
+#                     ^^ text.skitscript keyword.control.to.skitscript
+#                       ^ text.skitscript
+#                        ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                     ^^ text.skitscript keyword.operator.period.skitscript
+>> Set **flag B** leads to Flag Setter B.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#        ^^^^ text.skitscript markup.bold.skitscript markup.other.skitscript
+#            ^ text.skitscript markup.bold.skitscript
+#             ^ text.skitscript markup.bold.skitscript markup.other.skitscript
+#              ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#                ^ text.skitscript
+#                 ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                      ^ text.skitscript
+#                       ^^ text.skitscript keyword.control.to.skitscript
+#                         ^ text.skitscript
+#                          ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                       ^^ text.skitscript keyword.operator.period.skitscript
+>> Set `flag C` leads to Flag Setter C.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^ text.skitscript markup.inline.raw.string.skitscript punctuation.definition.raw.skitscript
+#       ^^^^^^^ text.skitscript markup.inline.raw.string.skitscript
+#              ^ text.skitscript
+#               ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                    ^ text.skitscript
+#                     ^^ text.skitscript keyword.control.to.skitscript
+#                       ^ text.skitscript
+#                        ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                     ^^ text.skitscript keyword.operator.period.skitscript
+>> Option which is removed when any flag is set leads to Remark No Flags when not flag A, flag B or flag C.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^^^^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^ text.skitscript markup.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^^^^ text.skitscript markup.other.skitscript
+#                         ^ text.skitscript
+#                          ^^^^ text.skitscript markup.other.skitscript
+#                              ^ text.skitscript
+#                               ^^^ text.skitscript markup.other.skitscript
+#                                  ^ text.skitscript
+#                                   ^^^^ text.skitscript markup.other.skitscript
+#                                       ^ text.skitscript
+#                                        ^^ text.skitscript markup.other.skitscript
+#                                          ^ text.skitscript
+#                                           ^^^ text.skitscript markup.other.skitscript
+#                                              ^ text.skitscript
+#                                               ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                                                    ^ text.skitscript
+#                                                     ^^ text.skitscript keyword.control.to.skitscript
+#                                                       ^ text.skitscript
+#                                                        ^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                       ^ text.skitscript
+#                                                                        ^^^^ text.skitscript keyword.control.when
+#                                                                            ^ text.skitscript
+#                                                                             ^^^ text.skitscript keyword.operator.not
+#                                                                                ^ text.skitscript
+#                                                                                 ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                       ^ text.skitscript punctuation.comma.skitscript
+#                                                                                        ^ text.skitscript
+#                                                                                         ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                               ^ text.skitscript
+#                                                                                                ^^ text.skitscript keyword.operator.or
+#                                                                                                  ^ text.skitscript
+#                                                                                                   ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                                         ^^ text.skitscript keyword.operator.period.skitscript
+>> Option which is added when any flag is set leads to Remark At Least One Flag when flag A, flag B or flag C.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^^^^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^ text.skitscript markup.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^^ text.skitscript markup.other.skitscript
+#                       ^ text.skitscript
+#                        ^^^^ text.skitscript markup.other.skitscript
+#                            ^ text.skitscript
+#                             ^^^ text.skitscript markup.other.skitscript
+#                                ^ text.skitscript
+#                                 ^^^^ text.skitscript markup.other.skitscript
+#                                     ^ text.skitscript
+#                                      ^^ text.skitscript markup.other.skitscript
+#                                        ^ text.skitscript
+#                                         ^^^ text.skitscript markup.other.skitscript
+#                                            ^ text.skitscript
+#                                             ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                                                  ^ text.skitscript
+#                                                   ^^ text.skitscript keyword.control.to.skitscript
+#                                                     ^ text.skitscript
+#                                                      ^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                              ^ text.skitscript
+#                                                                               ^^^^ text.skitscript keyword.control.when
+#                                                                                   ^ text.skitscript
+#                                                                                    ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                          ^ text.skitscript punctuation.comma.skitscript
+#                                                                                           ^ text.skitscript
+#                                                                                            ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                                  ^ text.skitscript
+#                                                                                                   ^^ text.skitscript keyword.operator.or
+#                                                                                                     ^ text.skitscript
+#                                                                                                      ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                                            ^^ text.skitscript keyword.operator.period.skitscript
+>> Option which is removed when every flag is set leads to Remark At Least Some Flags Missing when not flag A, flag B and flag C.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^^^^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^ text.skitscript markup.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^^^^ text.skitscript markup.other.skitscript
+#                         ^ text.skitscript
+#                          ^^^^ text.skitscript markup.other.skitscript
+#                              ^ text.skitscript
+#                               ^^^^^ text.skitscript markup.other.skitscript
+#                                    ^ text.skitscript
+#                                     ^^^^ text.skitscript markup.other.skitscript
+#                                         ^ text.skitscript
+#                                          ^^ text.skitscript markup.other.skitscript
+#                                            ^ text.skitscript
+#                                             ^^^ text.skitscript markup.other.skitscript
+#                                                ^ text.skitscript
+#                                                 ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                                                      ^ text.skitscript
+#                                                       ^^ text.skitscript keyword.control.to.skitscript
+#                                                         ^ text.skitscript
+#                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                            ^ text.skitscript
+#                                                                                             ^^^^ text.skitscript keyword.control.when
+#                                                                                                 ^ text.skitscript
+#                                                                                                  ^^^ text.skitscript keyword.operator.not
+#                                                                                                     ^ text.skitscript
+#                                                                                                      ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                                            ^ text.skitscript punctuation.comma.skitscript
+#                                                                                                             ^ text.skitscript
+#                                                                                                              ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                                                    ^ text.skitscript
+#                                                                                                                     ^^^ text.skitscript keyword.operator.and
+#                                                                                                                        ^ text.skitscript
+#                                                                                                                         ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                                                               ^^ text.skitscript keyword.operator.period.skitscript
+>> Option which is added when every flag is set leads to Remark All Flags when flag A, flag B and flag C.
+#^ text.skitscript keyword.control.menuoption.skitscript
+# ^ text.skitscript
+#  ^^^^^^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^ text.skitscript markup.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^^ text.skitscript markup.other.skitscript
+#                       ^ text.skitscript
+#                        ^^^^ text.skitscript markup.other.skitscript
+#                            ^ text.skitscript
+#                             ^^^^^ text.skitscript markup.other.skitscript
+#                                  ^ text.skitscript
+#                                   ^^^^ text.skitscript markup.other.skitscript
+#                                       ^ text.skitscript
+#                                        ^^ text.skitscript markup.other.skitscript
+#                                          ^ text.skitscript
+#                                           ^^^ text.skitscript markup.other.skitscript
+#                                              ^ text.skitscript
+#                                               ^^^^^ text.skitscript keyword.control.leads.skitscript
+#                                                    ^ text.skitscript
+#                                                     ^^ text.skitscript keyword.control.to.skitscript
+#                                                       ^ text.skitscript
+#                                                        ^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                        ^ text.skitscript
+#                                                                         ^^^^ text.skitscript keyword.control.when
+#                                                                             ^ text.skitscript
+#                                                                              ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                    ^ text.skitscript punctuation.comma.skitscript
+#                                                                                     ^ text.skitscript
+#                                                                                      ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                            ^ text.skitscript
+#                                                                                             ^^^ text.skitscript keyword.operator.and
+#                                                                                                ^ text.skitscript
+#                                                                                                 ^^^^^^ text.skitscript variable.other.skitscript
+#                                                                                                       ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Reset ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^ text.skitscript variable.other.skitscript
+#       ^ text.skitscript
+#        ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>Clear flag A, flag B and flag C.
+#^^^^^ text.skitscript keyword.other.clear
+#     ^ text.skitscript
+#      ^^^^^^ text.skitscript variable.other.skitscript
+#            ^ text.skitscript punctuation.comma.skitscript
+#             ^ text.skitscript
+#              ^^^^^^ text.skitscript variable.other.skitscript
+#                    ^ text.skitscript
+#                     ^^^ text.skitscript keyword.operator.and
+#                        ^ text.skitscript
+#                         ^^^^^^ text.skitscript variable.other.skitscript
+#                               ^^ text.skitscript keyword.operator.period.skitscript
+>
+>  All flags have been cleared.
+#^^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^^^^ text.skitscript markup.other.skitscript
+#           ^ text.skitscript
+#            ^^^^ text.skitscript markup.other.skitscript
+#                ^ text.skitscript
+#                 ^^^^ text.skitscript markup.other.skitscript
+#                     ^ text.skitscript
+#                      ^^^^^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ State Viewer ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#              ^ text.skitscript
+#               ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>Jump to State Viewer - None when not flag A, flag B or flag C.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                           ^ text.skitscript
+#                            ^^^^ text.skitscript keyword.control.when
+#                                ^ text.skitscript
+#                                 ^^^ text.skitscript keyword.operator.not
+#                                    ^ text.skitscript
+#                                     ^^^^^^ text.skitscript variable.other.skitscript
+#                                           ^ text.skitscript punctuation.comma.skitscript
+#                                            ^ text.skitscript
+#                                             ^^^^^^ text.skitscript variable.other.skitscript
+#                                                   ^ text.skitscript
+#                                                    ^^ text.skitscript keyword.operator.or
+#                                                      ^ text.skitscript
+#                                                       ^^^^^^ text.skitscript variable.other.skitscript
+#                                                             ^^ text.skitscript keyword.operator.period.skitscript
+>Jump to State Viewer - All when flag A, flag B and flag C.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                          ^ text.skitscript
+#                           ^^^^ text.skitscript keyword.control.when
+#                               ^ text.skitscript
+#                                ^^^^^^ text.skitscript variable.other.skitscript
+#                                      ^ text.skitscript punctuation.comma.skitscript
+#                                       ^ text.skitscript
+#                                        ^^^^^^ text.skitscript variable.other.skitscript
+#                                              ^ text.skitscript
+#                                               ^^^ text.skitscript keyword.operator.and
+#                                                  ^ text.skitscript
+#                                                   ^^^^^^ text.skitscript variable.other.skitscript
+#                                                         ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Jump to State Viewer - Only A when not flag B or flag C.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                             ^ text.skitscript
+#                              ^^^^ text.skitscript keyword.control.when
+#                                  ^ text.skitscript
+#                                   ^^^ text.skitscript keyword.operator.not
+#                                      ^ text.skitscript
+#                                       ^^^^^^ text.skitscript variable.other.skitscript
+#                                             ^ text.skitscript
+#                                              ^^ text.skitscript keyword.operator.or
+#                                                ^ text.skitscript
+#                                                 ^^^^^^ text.skitscript variable.other.skitscript
+#                                                       ^^ text.skitscript keyword.operator.period.skitscript
+>Jump to State Viewer - Only B when not flag A or flag C.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                             ^ text.skitscript
+#                              ^^^^ text.skitscript keyword.control.when
+#                                  ^ text.skitscript
+#                                   ^^^ text.skitscript keyword.operator.not
+#                                      ^ text.skitscript
+#                                       ^^^^^^ text.skitscript variable.other.skitscript
+#                                             ^ text.skitscript
+#                                              ^^ text.skitscript keyword.operator.or
+#                                                ^ text.skitscript
+#                                                 ^^^^^^ text.skitscript variable.other.skitscript
+#                                                       ^^ text.skitscript keyword.operator.period.skitscript
+>Jump to State Viewer - Only C when not flag A or flag B.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                             ^ text.skitscript
+#                              ^^^^ text.skitscript keyword.control.when
+#                                  ^ text.skitscript
+#                                   ^^^ text.skitscript keyword.operator.not
+#                                      ^ text.skitscript
+#                                       ^^^^^^ text.skitscript variable.other.skitscript
+#                                             ^ text.skitscript
+#                                              ^^ text.skitscript keyword.operator.or
+#                                                ^ text.skitscript
+#                                                 ^^^^^^ text.skitscript variable.other.skitscript
+#                                                       ^^ text.skitscript keyword.operator.period.skitscript
+>
+>Jump to State Viewer - A + B when not flag C.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                            ^ text.skitscript
+#                             ^^^^ text.skitscript keyword.control.when
+#                                 ^ text.skitscript
+#                                  ^^^ text.skitscript keyword.operator.not
+#                                     ^ text.skitscript
+#                                      ^^^^^^ text.skitscript variable.other.skitscript
+#                                            ^^ text.skitscript keyword.operator.period.skitscript
+>Jump to State Viewer - A + C when not flag B.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                            ^ text.skitscript
+#                             ^^^^ text.skitscript keyword.control.when
+#                                 ^ text.skitscript
+#                                  ^^^ text.skitscript keyword.operator.not
+#                                     ^ text.skitscript
+#                                      ^^^^^^ text.skitscript variable.other.skitscript
+#                                            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>  Flags B and C have been set.
+#^^ text.skitscript
+#  ^^^^^ text.skitscript markup.other.skitscript
+#       ^ text.skitscript
+#        ^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^ text.skitscript markup.other.skitscript
+#             ^ text.skitscript
+#              ^ text.skitscript markup.other.skitscript
+#               ^ text.skitscript
+#                ^^^^ text.skitscript markup.other.skitscript
+#                    ^ text.skitscript
+#                     ^^^^ text.skitscript markup.other.skitscript
+#                         ^ text.skitscript
+#                          ^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ State Viewer - None ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                     ^ text.skitscript
+#                      ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  All of the flags (A, B and C) are clear.
+#^^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^ text.skitscript markup.other.skitscript
+#            ^ text.skitscript
+#             ^^^^^ text.skitscript markup.other.skitscript
+#                  ^ text.skitscript
+#                   ^^^ text.skitscript markup.other.skitscript
+#                      ^ text.skitscript
+#                       ^ text.skitscript markup.other.skitscript
+#                        ^ text.skitscript
+#                         ^^^ text.skitscript markup.other.skitscript
+#                            ^ text.skitscript
+#                             ^^ text.skitscript markup.other.skitscript
+#                               ^ text.skitscript
+#                                ^^^ text.skitscript markup.other.skitscript
+#                                   ^ text.skitscript
+#                                    ^^^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ State Viewer - All ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                    ^ text.skitscript
+#                     ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  All of the flags (A, B and C) are set.
+#^^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^ text.skitscript markup.other.skitscript
+#            ^ text.skitscript
+#             ^^^^^ text.skitscript markup.other.skitscript
+#                  ^ text.skitscript
+#                   ^^^ text.skitscript markup.other.skitscript
+#                      ^ text.skitscript
+#                       ^ text.skitscript markup.other.skitscript
+#                        ^ text.skitscript
+#                         ^^^ text.skitscript markup.other.skitscript
+#                            ^ text.skitscript
+#                             ^^ text.skitscript markup.other.skitscript
+#                               ^ text.skitscript
+#                                ^^^ text.skitscript markup.other.skitscript
+#                                   ^ text.skitscript
+#                                    ^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ State Viewer - Only A ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                       ^ text.skitscript
+#                        ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  Flag A is set; flags B and C are clear.
+#^^ text.skitscript
+#  ^^^^ text.skitscript markup.other.skitscript
+#      ^ text.skitscript
+#       ^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^ text.skitscript markup.other.skitscript
+#           ^ text.skitscript
+#            ^^^^ text.skitscript markup.other.skitscript
+#                ^ text.skitscript
+#                 ^^^^^ text.skitscript markup.other.skitscript
+#                      ^ text.skitscript
+#                       ^ text.skitscript markup.other.skitscript
+#                        ^ text.skitscript
+#                         ^^^ text.skitscript markup.other.skitscript
+#                            ^ text.skitscript
+#                             ^ text.skitscript markup.other.skitscript
+#                              ^ text.skitscript
+#                               ^^^ text.skitscript markup.other.skitscript
+#                                  ^ text.skitscript
+#                                   ^^^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ State Viewer - Only B ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                       ^ text.skitscript
+#                        ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  Flag B is set; flags A and C are clear.
+#^^ text.skitscript
+#  ^^^^ text.skitscript markup.other.skitscript
+#      ^ text.skitscript
+#       ^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^ text.skitscript markup.other.skitscript
+#           ^ text.skitscript
+#            ^^^^ text.skitscript markup.other.skitscript
+#                ^ text.skitscript
+#                 ^^^^^ text.skitscript markup.other.skitscript
+#                      ^ text.skitscript
+#                       ^ text.skitscript markup.other.skitscript
+#                        ^ text.skitscript
+#                         ^^^ text.skitscript markup.other.skitscript
+#                            ^ text.skitscript
+#                             ^ text.skitscript markup.other.skitscript
+#                              ^ text.skitscript
+#                               ^^^ text.skitscript markup.other.skitscript
+#                                  ^ text.skitscript
+#                                   ^^^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ State Viewer - Only C ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                       ^ text.skitscript
+#                        ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  Flag C is set; flags A and B are clear.
+#^^ text.skitscript
+#  ^^^^ text.skitscript markup.other.skitscript
+#      ^ text.skitscript
+#       ^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^ text.skitscript markup.other.skitscript
+#           ^ text.skitscript
+#            ^^^^ text.skitscript markup.other.skitscript
+#                ^ text.skitscript
+#                 ^^^^^ text.skitscript markup.other.skitscript
+#                      ^ text.skitscript
+#                       ^ text.skitscript markup.other.skitscript
+#                        ^ text.skitscript
+#                         ^^^ text.skitscript markup.other.skitscript
+#                            ^ text.skitscript
+#                             ^ text.skitscript markup.other.skitscript
+#                              ^ text.skitscript
+#                               ^^^ text.skitscript markup.other.skitscript
+#                                  ^ text.skitscript
+#                                   ^^^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ State Viewer - A + B ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                      ^ text.skitscript
+#                       ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  Flags A and B are set; flag C is clear.
+#^^ text.skitscript
+#  ^^^^^ text.skitscript markup.other.skitscript
+#       ^ text.skitscript
+#        ^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^ text.skitscript markup.other.skitscript
+#             ^ text.skitscript
+#              ^ text.skitscript markup.other.skitscript
+#               ^ text.skitscript
+#                ^^^ text.skitscript markup.other.skitscript
+#                   ^ text.skitscript
+#                    ^^^^ text.skitscript markup.other.skitscript
+#                        ^ text.skitscript
+#                         ^^^^ text.skitscript markup.other.skitscript
+#                             ^ text.skitscript
+#                              ^ text.skitscript markup.other.skitscript
+#                               ^ text.skitscript
+#                                ^^ text.skitscript markup.other.skitscript
+#                                  ^ text.skitscript
+#                                   ^^^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ State Viewer - A + C ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                      ^ text.skitscript
+#                       ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  Flags A and C are set; flag B is clear.
+#^^ text.skitscript
+#  ^^^^^ text.skitscript markup.other.skitscript
+#       ^ text.skitscript
+#        ^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^ text.skitscript markup.other.skitscript
+#             ^ text.skitscript
+#              ^ text.skitscript markup.other.skitscript
+#               ^ text.skitscript
+#                ^^^ text.skitscript markup.other.skitscript
+#                   ^ text.skitscript
+#                    ^^^^ text.skitscript markup.other.skitscript
+#                        ^ text.skitscript
+#                         ^^^^ text.skitscript markup.other.skitscript
+#                             ^ text.skitscript
+#                              ^ text.skitscript markup.other.skitscript
+#                               ^ text.skitscript
+#                                ^^ text.skitscript markup.other.skitscript
+#                                  ^ text.skitscript
+#                                   ^^^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Flag Setter A ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>Set flag A.
+#^^^ text.skitscript keyword.other.set
+#   ^ text.skitscript
+#    ^^^^^^ text.skitscript variable.other.skitscript
+#          ^^ text.skitscript keyword.operator.period.skitscript
+>
+>  Flag A has been set.
+#^^ text.skitscript
+#  ^^^^ text.skitscript markup.other.skitscript
+#      ^ text.skitscript
+#       ^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^ text.skitscript markup.other.skitscript
+#            ^ text.skitscript
+#             ^^^^ text.skitscript markup.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Flag Setter B ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>Set flag B.
+#^^^ text.skitscript keyword.other.set
+#   ^ text.skitscript
+#    ^^^^^^ text.skitscript variable.other.skitscript
+#          ^^ text.skitscript keyword.operator.period.skitscript
+>
+>  Flag B has been set.
+#^^ text.skitscript
+#  ^^^^ text.skitscript markup.other.skitscript
+#      ^ text.skitscript
+#       ^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^ text.skitscript markup.other.skitscript
+#            ^ text.skitscript
+#             ^^^^ text.skitscript markup.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Flag Setter C ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#               ^ text.skitscript
+#                ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>Set flag C.
+#^^^ text.skitscript keyword.other.set
+#   ^ text.skitscript
+#    ^^^^^^ text.skitscript variable.other.skitscript
+#          ^^ text.skitscript keyword.operator.period.skitscript
+>
+>  Flag C has been set.
+#^^ text.skitscript
+#  ^^^^ text.skitscript markup.other.skitscript
+#      ^ text.skitscript
+#       ^ text.skitscript markup.other.skitscript
+#        ^ text.skitscript
+#         ^^^ text.skitscript markup.other.skitscript
+#            ^ text.skitscript
+#             ^^^^ text.skitscript markup.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Remark No Flags ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript
+#                  ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  No flags are set.
+#^^ text.skitscript
+#  ^^ text.skitscript markup.other.skitscript
+#    ^ text.skitscript
+#     ^^^^^ text.skitscript markup.other.skitscript
+#          ^ text.skitscript
+#           ^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Remark At Least One Flag ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                          ^ text.skitscript
+#                           ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  At least one flag is set.
+#^^ text.skitscript
+#  ^^ text.skitscript markup.other.skitscript
+#    ^ text.skitscript
+#     ^^^^^ text.skitscript markup.other.skitscript
+#          ^ text.skitscript
+#           ^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^^^^ text.skitscript markup.other.skitscript
+#                   ^ text.skitscript
+#                    ^^ text.skitscript markup.other.skitscript
+#                      ^ text.skitscript
+#                       ^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Remark At Least Some Flags Missing ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                    ^ text.skitscript
+#                                     ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  At least some flags are not set.
+#^^ text.skitscript
+#  ^^ text.skitscript markup.other.skitscript
+#    ^ text.skitscript
+#     ^^^^^ text.skitscript markup.other.skitscript
+#          ^ text.skitscript
+#           ^^^^ text.skitscript markup.other.skitscript
+#               ^ text.skitscript
+#                ^^^^^ text.skitscript markup.other.skitscript
+#                     ^ text.skitscript
+#                      ^^^ text.skitscript markup.other.skitscript
+#                         ^ text.skitscript
+#                          ^^^ text.skitscript markup.other.skitscript
+#                             ^ text.skitscript
+#                              ^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>
+>~ Remark All Flags ~
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                  ^ text.skitscript
+#                   ^ text.skitscript keyword.operator.tilde.skitscript
+>
+>  All flags are set.
+#^^ text.skitscript
+#  ^^^ text.skitscript markup.other.skitscript
+#     ^ text.skitscript
+#      ^^^^^ text.skitscript markup.other.skitscript
+#           ^ text.skitscript
+#            ^^^ text.skitscript markup.other.skitscript
+#               ^ text.skitscript
+#                ^^^^ text.skitscript markup.other.skitscript
+>
+>Jump to Menu.
+#^^^^ text.skitscript keyword.control.jump
+#    ^ text.skitscript
+#     ^^ text.skitscript keyword.control.to
+#       ^ text.skitscript
+#        ^^^^ text.skitscript variable.other.skitscript
+#            ^^ text.skitscript keyword.operator.period.skitscript
+>

@@ -1,0 +1,8 @@
+>Example  CharActer:
+#^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                  ^ text.skitscript keyword.operator.colon.skitscript
+>
+>exAMple CHARacter:
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript keyword.operator.colon.skitscript
+>

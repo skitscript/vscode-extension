@@ -1,0 +1,19 @@
+>  Example line \Q with an invalid escape sequence.
+#^^ text.skitscript
+#  ^^^^^^^ text.skitscript markup.other.skitscript
+#         ^ text.skitscript
+#          ^^^^ text.skitscript markup.other.skitscript
+#              ^ text.skitscript
+#               ^ text.skitscript markup.other.skitscript
+#                ^ text.skitscript markup.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^ text.skitscript markup.other.skitscript
+#                      ^ text.skitscript
+#                       ^^ text.skitscript markup.other.skitscript
+#                         ^ text.skitscript
+#                          ^^^^^^^ text.skitscript markup.other.skitscript
+#                                 ^ text.skitscript
+#                                  ^^^^^^ text.skitscript markup.other.skitscript
+#                                        ^ text.skitscript
+#                                         ^^^^^^^^^ text.skitscript markup.other.skitscript
+>
