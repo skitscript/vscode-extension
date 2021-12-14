@@ -114,6 +114,14 @@
       "name": "keyword.other.exits"
     },
     {
+      "match": "(?i)\\bis\\b",
+      "name": "keyword.other.is"
+    },
+    {
+      "match": "(?i)\\bare\\b",
+      "name": "keyword.other.are"
+    },
+    {
       "match": "\\b(?=.*[^!?'\"{}@*\/\\\\&#%`+<=>|$.\\-\\s].*)(?:(?!(?:and|or|when|not|is|are|enters|enter|exits|exit|leads|to|set|clear|jump)\\b)[^,()\\s:~]+)(?:\\s+(?!(?:and|or|when|not|is|are|enters|enter|exits|exit|leads|to|set|clear|jump)\\b)[^,()\\s:~]+)*\\b",
       "name": "variable.other.skitscript"
     }
