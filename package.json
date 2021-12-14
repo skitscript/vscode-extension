@@ -1,5 +1,5 @@
 {
-  "name": "@skitscript/extension-vscode",
+  "name": "skitscript",
   "description": "Adds support for Skitscript documents to Visual Studio Code.",
   "version": "0.0.0",
   "engines": {
