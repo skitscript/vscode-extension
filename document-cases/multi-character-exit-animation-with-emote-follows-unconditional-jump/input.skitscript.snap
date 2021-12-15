@@ -19,15 +19,18 @@
 #        ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
 #                     ^^ text.skitscript keyword.operator.period.skitscript
 >
->Example Character A and Example Character B are Example Emote.
+>Example Character A and Example Character B exit left, Example Emote.
 #^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
 #                   ^ text.skitscript
 #                    ^^^ text.skitscript keyword.operator.and
 #                       ^ text.skitscript
 #                        ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
 #                                           ^ text.skitscript
-#                                            ^^^ text.skitscript keyword.other.are
-#                                               ^ text.skitscript
-#                                                ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
-#                                                             ^^ text.skitscript keyword.operator.period.skitscript
+#                                            ^^^^ text.skitscript keyword.other.exit
+#                                                ^ text.skitscript
+#                                                 ^^^^ text.skitscript variable.other.skitscript
+#                                                     ^ text.skitscript punctuation.comma.skitscript
+#                                                      ^ text.skitscript
+#                                                       ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                                    ^^ text.skitscript keyword.operator.period.skitscript
 >

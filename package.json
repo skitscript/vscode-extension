@@ -49,10 +49,9 @@
     "vscode-tmgrammar-test": "0.0.11"
   },
   "scripts": {
-    "test": "npm-run-all testCleanCases testCopyCases testSnapshot",
-    "testCleanCases": "del-cli \"cases/*/input.skitscript\"",
-    "testCopyCases": "cpy --parents --cwd=\"submodules/skitscript/parser-test-suite/cases\" \"*/input.skitscript\" \"../../../../cases\"",
-    "testSnapshot": "vscode-tmgrammar-snap --scope text.skitscript --grammar \"skitscript.tmLanguage.json\" --testcases \"cases/*/input.skitscript\""
+    "testCleanCases": "del-cli \"document-cases/*/input.skitscript\"",
+    "testCopyCases": "cpy --parents --cwd=\"submodules/skitscript/parser-test-suite/document-cases\" \"*/input.skitscript\" \"../../../../document-cases\"",
+    "testSnapshot": "vscode-tmgrammar-snap --scope text.skitscript --grammar \"skitscript.tmLanguage.json\" --testcases \"document-cases/*/input.skitscript\""
   },
   "sideEffects": false
 }
