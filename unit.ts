@@ -17,6 +17,10 @@ class Position {
   constructor(readonly line: number, readonly character: number) {}
 }
 
+class Location {
+  constructor(readonly uri: string, readonly range: Range) {}
+}
+
 class WorkspaceEdit {
   readonly mockedReplacements: {
     readonly uri: string;
@@ -188,6 +192,7 @@ describe(`on activation`, () => {
       Position,
       Disposable,
       WorkspaceEdit,
+      Location,
       languages: {
         registerRenameProvider(
           documentSelector: vscode.DocumentSelector,
@@ -200,6 +205,17 @@ describe(`on activation`, () => {
             },
           };
         },
+        registerReferenceProvider(
+          documentSelector: vscode.DocumentSelector,
+          referenceProvider: vscode.ReferenceProvider
+        ) {
+          return {
+            mockedReferenceProvider: {
+              documentSelector,
+              referenceProvider,
+            },
+          };
+        },
       },
     });
 
@@ -209,7 +225,7 @@ describe(`on activation`, () => {
   it(`adds one disposable item to the context with the expected number of providers`, () => {
     expect(context.subscriptions).toEqual([
       {
-        mockedDisposableOf: [jasmine.anything()],
+        mockedDisposableOf: [jasmine.anything(), jasmine.anything()],
       },
     ]);
   });
@@ -671,6 +687,919 @@ Location: Example Identifier A.`
           expect(output).toEqual({
             range: new Range(new Position(4, 10), new Position(4, 30)),
             placeholder: `Example Identifier B`,
+          });
+        });
+      });
+    });
+  });
+
+  describe(`reference provider`, () => {
+    let referenceProvider: {
+      readonly mockedReferenceProvider: {
+        readonly documentSelector: vscode.DocumentSelector;
+        readonly referenceProvider: vscode.ReferenceProvider;
+      };
+    };
+
+    beforeAll(() => {
+      referenceProvider = (
+        context.subscriptions[0] as unknown as {
+          readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
+        }
+      ).mockedDisposableOf.find(
+        (item) => `mockedReferenceProvider` in item
+      ) as {
+        readonly mockedReferenceProvider: {
+          readonly documentSelector: vscode.DocumentSelector;
+          readonly referenceProvider: vscode.ReferenceProvider;
+        };
+      };
+    });
+
+    it(`is included`, () => {
+      expect(referenceProvider).not.toBeUndefined();
+    });
+
+    it(`uses the correct document selector`, () => {
+      expect(
+        referenceProvider.mockedReferenceProvider.documentSelector
+      ).toEqual({
+        scheme: `file`,
+        language: `skitscript`,
+      });
+    });
+
+    describe(`provideReferences`, () => {
+      describe(`when not including the definition`, () => {
+        describe(`when the document cannot be parsed`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A isnt Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 6) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns null`, () => {
+            expect(output).toBeNull();
+          });
+        });
+
+        describe(`when the cursor is before the first character of an identifier`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 1) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns null`, () => {
+            expect(output).toBeNull();
+          });
+        });
+
+        describe(`when the cursor is after the last character of an identifier`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 22) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns null`, () => {
+            expect(output).toBeNull();
+          });
+        });
+
+        describe(`when the cursor is on the first character of a declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 2) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is in the middle of a declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 6) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the last character of a declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 21) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the first character of a reference`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(3, 8) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is in the middle of a reference`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(3, 12) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the last character of a reference`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(3, 27) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the first character of an implicit declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(2, 24) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(6, 24), new Position(6, 44))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is in the middle of an implicit declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(2, 30) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(6, 24), new Position(6, 44))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the last character of an implicit declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(2, 43) as vscode.Position,
+                { includeDeclaration: false },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(6, 24), new Position(6, 44))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+      });
+
+      describe(`when including the definition`, () => {
+        describe(`when the document cannot be parsed`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A isnt Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 6) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns null`, () => {
+            expect(output).toBeNull();
+          });
+        });
+
+        describe(`when the cursor is before the first character of an identifier`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 1) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns null`, () => {
+            expect(output).toBeNull();
+          });
+        });
+
+        describe(`when the cursor is after the last character of an identifier`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 22) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns null`, () => {
+            expect(output).toBeNull();
+          });
+        });
+
+        describe(`when the cursor is on the first character of a declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 2) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(5, 2), new Position(5, 22))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is in the middle of a declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 6) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(5, 2), new Position(5, 22))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the last character of a declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(5, 21) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(5, 2), new Position(5, 22))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the first character of a reference`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(3, 8) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(5, 2), new Position(5, 22))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is in the middle of a reference`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(3, 12) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(5, 2), new Position(5, 22))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the last character of a reference`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(3, 27) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(3, 8), new Position(3, 28))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(5, 2), new Position(5, 22))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(8, 8), new Position(8, 28))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the first character of an implicit declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(2, 24) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(2, 24), new Position(2, 44))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(6, 24), new Position(6, 44))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is in the middle of an implicit declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(2, 30) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(2, 24), new Position(2, 44))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(6, 24), new Position(6, 44))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
+          });
+        });
+
+        describe(`when the cursor is on the last character of an implicit declaration`, () => {
+          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
+
+          beforeAll(() => {
+            output =
+              referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
+                createTextDocument(
+                  `Example Identifier A is Example Identifier B.
+~ Example Identifier B ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.
+~ Example Identifier A ~
+Example Identifier B is Example Identifier A.
+Jump to Example Identifier B.
+Jump to Example Identifier A.
+Example Identifier A is Example Identifier B.`
+                ),
+                new Position(2, 43) as vscode.Position,
+                { includeDeclaration: true },
+                {} as vscode.CancellationToken
+              );
+          });
+
+          it(`returns the expected locations`, () => {
+            expect(output).toEqual([
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(2, 24), new Position(2, 44))
+              ),
+              new Location(
+                `Example Text Document Uri`,
+                new Range(new Position(6, 24), new Position(6, 44))
+              ),
+            ] as unknown as ReadonlyArray<vscode.Location>);
           });
         });
       });

@@ -9,6 +9,9 @@ import type {
   ProviderResult,
   Range,
   DocumentSelector,
+  ReferenceProvider,
+  ReferenceContext,
+  Location,
 } from "vscode";
 import { optionalRequire } from "optional-require";
 
@@ -121,10 +124,83 @@ const renameProvider: RenameProvider = {
   },
 };
 
+const referenceProvider: ReferenceProvider = {
+  provideReferences(
+    document: TextDocument,
+    position: Position,
+    context: ReferenceContext,
+    token: CancellationToken
+  ): ProviderResult<Location[]> {
+    context;
+    token;
+
+    const parsed = parse(document.getText());
+
+    if (parsed.type === `valid`) {
+      const line = position.line + 1;
+      const column = position.character + 1;
+
+      const identifierInstance = parsed.identifierInstances.find(
+        (identifierInstance) =>
+          identifierInstance.line === line &&
+          identifierInstance.fromColumn <= column &&
+          identifierInstance.toColumn >= column
+      );
+
+      if (identifierInstance === undefined) {
+        return null;
+      } else {
+        let identifierInstances = parsed.identifierInstances.filter(
+          (otherIdentifierInstance) =>
+            otherIdentifierInstance.type === identifierInstance.type &&
+            otherIdentifierInstance.normalized === identifierInstance.normalized
+        );
+
+        if (!context.includeDeclaration) {
+          identifierInstances = [
+            ...identifierInstances
+              .filter(
+                (identifierInstance) =>
+                  identifierInstance.context === `implicitDeclaration`
+              )
+              .slice(1),
+            ...identifierInstances.filter(
+              (identifierInstance) => identifierInstance.context === `reference`
+            ),
+          ];
+        }
+
+        return identifierInstances.map(
+          (identifierInstance) =>
+            new vscode.Location(
+              document.uri,
+              new vscode.Range(
+                new vscode.Position(
+                  identifierInstance.line - 1,
+                  identifierInstance.fromColumn - 1
+                ),
+                new vscode.Position(
+                  identifierInstance.line - 1,
+                  identifierInstance.toColumn
+                )
+              )
+            )
+        );
+      }
+    } else {
+      return null;
+    }
+  },
+};
+
 export function activate(context: ExtensionContext): void {
   context.subscriptions.push(
     vscode.Disposable.from(
-      vscode.languages.registerRenameProvider(documentSelector, renameProvider)
+      vscode.languages.registerRenameProvider(documentSelector, renameProvider),
+      vscode.languages.registerReferenceProvider(
+        documentSelector,
+        referenceProvider
+      )
     )
   );
 }
