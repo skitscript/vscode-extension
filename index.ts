@@ -12,6 +12,9 @@ import type {
   ReferenceProvider,
   ReferenceContext,
   Location,
+  DefinitionProvider,
+  Definition,
+  DefinitionLink,
 } from "vscode";
 import { optionalRequire } from "optional-require";
 
@@ -131,7 +134,6 @@ const referenceProvider: ReferenceProvider = {
     context: ReferenceContext,
     token: CancellationToken
   ): ProviderResult<Location[]> {
-    context;
     token;
 
     const parsed = parse(document.getText());
@@ -193,6 +195,68 @@ const referenceProvider: ReferenceProvider = {
   },
 };
 
+const definitionProvider: DefinitionProvider = {
+  provideDefinition(
+    document: TextDocument,
+    position: Position,
+    token: CancellationToken
+  ): ProviderResult<Definition | DefinitionLink[]> {
+    token;
+
+    const parsed = parse(document.getText());
+
+    if (parsed.type === `valid`) {
+      const line = position.line + 1;
+      const column = position.character + 1;
+
+      const identifierInstance = parsed.identifierInstances.find(
+        (identifierInstance) =>
+          identifierInstance.line === line &&
+          identifierInstance.fromColumn <= column &&
+          identifierInstance.toColumn >= column
+      );
+
+      if (identifierInstance === undefined) {
+        return null;
+      } else {
+        const identifierInstances = parsed.identifierInstances.filter(
+          (otherIdentifierInstance) =>
+            otherIdentifierInstance.type === identifierInstance.type &&
+            otherIdentifierInstance.normalized === identifierInstance.normalized
+        );
+
+        return [
+          ...identifierInstances.filter(
+            (otherIdentifierInstance) =>
+              otherIdentifierInstance.context === `declaration`
+          ),
+          ...identifierInstances.filter(
+            (otherIdentifierInstance) =>
+              otherIdentifierInstance.context === `implicitDeclaration`
+          ),
+        ].map(
+          (identifierInstance) =>
+            new vscode.Location(
+              document.uri,
+              new vscode.Range(
+                new vscode.Position(
+                  identifierInstance.line - 1,
+                  identifierInstance.fromColumn - 1
+                ),
+                new vscode.Position(
+                  identifierInstance.line - 1,
+                  identifierInstance.toColumn
+                )
+              )
+            )
+        )[0] as Location;
+      }
+    } else {
+      return null;
+    }
+  },
+};
+
 export function activate(context: ExtensionContext): void {
   context.subscriptions.push(
     vscode.Disposable.from(
@@ -200,6 +264,10 @@ export function activate(context: ExtensionContext): void {
       vscode.languages.registerReferenceProvider(
         documentSelector,
         referenceProvider
+      ),
+      vscode.languages.registerDefinitionProvider(
+        documentSelector,
+        definitionProvider
       )
     )
   );
