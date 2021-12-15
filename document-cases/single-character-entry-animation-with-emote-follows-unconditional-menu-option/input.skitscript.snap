@@ -65,15 +65,14 @@
 #                                                  ^^^^^^^^^^^^ text.skitscript variable.other.skitscript
 #                                                              ^^ text.skitscript keyword.operator.period.skitscript
 >
->Example Character A and Example Character B enter from the left.
-#^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
-#                   ^ text.skitscript
-#                    ^^^ text.skitscript keyword.operator.and
-#                       ^ text.skitscript
-#                        ^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
-#                                           ^ text.skitscript
-#                                            ^^^^^ text.skitscript keyword.other.enter
-#                                                 ^ text.skitscript
-#                                                  ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
-#                                                               ^^ text.skitscript keyword.operator.period.skitscript
+>Example Character enters from the left, Example Emote.
+#^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^^^ text.skitscript keyword.other.enters
+#                        ^ text.skitscript
+#                         ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                      ^ text.skitscript punctuation.comma.skitscript
+#                                       ^ text.skitscript
+#                                        ^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#                                                     ^^ text.skitscript keyword.operator.period.skitscript
 >
