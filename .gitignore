@@ -2,3 +2,5 @@
 node_modules
 .~*#
 document-cases/*/input.skitscript
+.nyc_output
+*.js
