@@ -1,5 +1,11 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.formatOnSave": false,
+  },
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
@@ -11,5 +17,9 @@
     "**/.git": true,
     "**/.DS_Store": true,
     "node_modules": true,
-    "document-cases/*/input.skitscript": true
+    "document-cases/*/input.skitscript": true,
+    "**/*.js": true,
+    ".nyc_output": true
+  },
+  "typescript.tsdk": "./node_modules/typescript.lib"
 }
