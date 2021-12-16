@@ -82,110 +82,14 @@ const createTextDocument = (text: string): vscode.TextDocument => ({
 });
 
 describe(`on activation`, () => {
-  let context: vscode.ExtensionContext;
+  let extension: {
+    activate(context: vscode.ExtensionContext): void;
+    __set__(attribute: string, value: unknown): void;
+  };
 
   beforeAll(() => {
-    context = {
-      subscriptions: [],
-      workspaceState: {
-        keys() {
-          fail(`Unexpected call to Memento.keys.`);
-          throw new Error(`Unexpected call to Memento.keys.`);
-        },
-        get() {
-          fail(`Unexpected call to Memento.get.`);
-          throw new Error(`Unexpected call to Memento.get.`);
-        },
-        async update() {
-          fail(`Unexpected call to Memento.update.`);
-        },
-      },
-      globalState: {
-        keys() {
-          fail(`Unexpected call to Memento.keys.`);
-          throw new Error(`Unexpected call to Memento.keys.`);
-        },
-        setKeysForSync() {
-          fail(`Unexpected call to Memento.setKeysForSync.`);
-        },
-        get() {
-          fail(`Unexpected call to Memento.get.`);
-          throw new Error(`Unexpected call to Memento.get.`);
-        },
-        async update() {
-          fail(`Unexpected call to Memento.update.`);
-        },
-      },
-      extensionPath: `Example Extension Path`,
-      asAbsolutePath(relativePath: string): string {
-        fail(`Unexpected call to context.asAbsolutePath.`);
-        return relativePath;
-      },
-      storagePath: `Example Storage Path`,
-      globalStoragePath: `Example Global Storage Path`,
-      logPath: `Example Log Path`,
-      extensionUri: {} as unknown as vscode.Uri,
-      secrets: {
-        async get() {
-          fail(`Unexpected call to secrets.get.`);
-          return undefined;
-        },
-        async store() {
-          fail(`Unexpected call to secrets.store.`);
-        },
-        async delete() {
-          fail(`Unexpected call to secrets.delete.`);
-        },
-        onDidChange: () => {
-          fail(`Unexpected call to secrets.onDidChange.`);
-          throw new Error(`Unexpected call to secrets.onDidChange.`);
-        },
-      },
-      environmentVariableCollection: {
-        persistent: false,
-        replace() {
-          fail(`Unexpected call to environmentVariableCollection.replace.`);
-        },
-        append() {
-          fail(`Unexpected call to environmentVariableCollection.append.`);
-        },
-        prepend() {
-          fail(`Unexpected call to environmentVariableCollection.prepend.`);
-        },
-        get() {
-          fail(`Unexpected call to environmentVariableCollection.get.`);
-          return undefined;
-        },
-        forEach() {
-          fail(`Unexpected call to environmentVariableCollection.forEach.`);
-        },
-        delete() {
-          fail(`Unexpected call to environmentVariableCollection.delete.`);
-        },
-        clear() {
-          fail(`Unexpected call to environmentVariableCollection.clear.`);
-        },
-      },
-      globalStorageUri: {} as unknown as vscode.Uri,
-      storageUri: {} as unknown as vscode.Uri,
-      logUri: {} as unknown as vscode.Uri,
-      extension: {
-        id: `Example Extension Id`,
-        extensionUri: {} as unknown as vscode.Uri,
-        extensionPath: `Example Extension Path`,
-        isActive: false,
-        packageJSON: {},
-        extensionKind: 1,
-        exports: null,
-        async activate() {
-          fail(`Unexpected call to context.extension.activate.`);
-        },
-      },
-      extensionMode: 3,
-    };
-
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const extension = rewire(`.`);
+    extension = rewire(`.`);
 
     extension.__set__(`vscode`, {
       Range,
@@ -229,60 +133,178 @@ describe(`on activation`, () => {
         },
       },
     });
-
-    extension[`activate`](context);
   });
 
-  it(`adds one disposable item to the context with the expected number of providers`, () => {
-    expect(context.subscriptions).toEqual([
-      {
-        mockedDisposableOf: [
-          jasmine.anything(),
-          jasmine.anything(),
-          jasmine.anything(),
-        ],
-      },
-    ]);
-  });
+  const scenario = (
+    description: string,
+    then: (context: vscode.ExtensionContext) => void
+  ): void => {
+    it(description, () => {
+      const context = {
+        subscriptions: [],
+        workspaceState: {
+          keys() {
+            fail(`Unexpected call to Memento.keys.`);
+            throw new Error(`Unexpected call to Memento.keys.`);
+          },
+          get() {
+            fail(`Unexpected call to Memento.get.`);
+            throw new Error(`Unexpected call to Memento.get.`);
+          },
+          async update() {
+            fail(`Unexpected call to Memento.update.`);
+          },
+        },
+        globalState: {
+          keys() {
+            fail(`Unexpected call to Memento.keys.`);
+            throw new Error(`Unexpected call to Memento.keys.`);
+          },
+          setKeysForSync() {
+            fail(`Unexpected call to Memento.setKeysForSync.`);
+          },
+          get() {
+            fail(`Unexpected call to Memento.get.`);
+            throw new Error(`Unexpected call to Memento.get.`);
+          },
+          async update() {
+            fail(`Unexpected call to Memento.update.`);
+          },
+        },
+        extensionPath: `Example Extension Path`,
+        asAbsolutePath(relativePath: string): string {
+          fail(`Unexpected call to context.asAbsolutePath.`);
+          return relativePath;
+        },
+        storagePath: `Example Storage Path`,
+        globalStoragePath: `Example Global Storage Path`,
+        logPath: `Example Log Path`,
+        extensionUri: {} as unknown as vscode.Uri,
+        secrets: {
+          async get() {
+            fail(`Unexpected call to secrets.get.`);
+            return undefined;
+          },
+          async store() {
+            fail(`Unexpected call to secrets.store.`);
+          },
+          async delete() {
+            fail(`Unexpected call to secrets.delete.`);
+          },
+          onDidChange: () => {
+            fail(`Unexpected call to secrets.onDidChange.`);
+            throw new Error(`Unexpected call to secrets.onDidChange.`);
+          },
+        },
+        environmentVariableCollection: {
+          persistent: false,
+          replace() {
+            fail(`Unexpected call to environmentVariableCollection.replace.`);
+          },
+          append() {
+            fail(`Unexpected call to environmentVariableCollection.append.`);
+          },
+          prepend() {
+            fail(`Unexpected call to environmentVariableCollection.prepend.`);
+          },
+          get() {
+            fail(`Unexpected call to environmentVariableCollection.get.`);
+            return undefined;
+          },
+          forEach() {
+            fail(`Unexpected call to environmentVariableCollection.forEach.`);
+          },
+          delete() {
+            fail(`Unexpected call to environmentVariableCollection.delete.`);
+          },
+          clear() {
+            fail(`Unexpected call to environmentVariableCollection.clear.`);
+          },
+        },
+        globalStorageUri: {} as unknown as vscode.Uri,
+        storageUri: {} as unknown as vscode.Uri,
+        logUri: {} as unknown as vscode.Uri,
+        extension: {
+          id: `Example Extension Id`,
+          extensionUri: {} as unknown as vscode.Uri,
+          extensionPath: `Example Extension Path`,
+          isActive: false,
+          packageJSON: {},
+          extensionKind: 1,
+          exports: null,
+          async activate() {
+            fail(`Unexpected call to context.extension.activate.`);
+          },
+        },
+        extensionMode: 3,
+      };
+
+      extension[`activate`](context);
+
+      then(context);
+    });
+  };
+
+  scenario(
+    `adds one disposable item to the context with the expected number of providers`,
+    (context) => {
+      expect(context.subscriptions).toEqual([
+        {
+          mockedDisposableOf: [
+            jasmine.anything(),
+            jasmine.anything(),
+            jasmine.anything(),
+          ],
+        },
+      ]);
+    }
+  );
 
   describe(`rename provider`, () => {
-    let renameProvider: {
-      readonly mockedRenameProvider: {
-        readonly documentSelector: vscode.DocumentSelector;
-        readonly renameProvider: vscode.RenameProvider;
-      };
-    };
-
-    beforeAll(() => {
-      renameProvider = (
-        context.subscriptions[0] as unknown as {
-          readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
-        }
-      ).mockedDisposableOf.find((item) => `mockedRenameProvider` in item) as {
+    const renameProviderScenario = (
+      description: string,
+      then: (renameProvider: {
         readonly mockedRenameProvider: {
           readonly documentSelector: vscode.DocumentSelector;
           readonly renameProvider: vscode.RenameProvider;
         };
-      };
-    });
+      }) => void
+    ): void => {
+      scenario(description, (context) => {
+        const renameProvider = (
+          context.subscriptions[0] as unknown as {
+            readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
+          }
+        ).mockedDisposableOf.find((item) => `mockedRenameProvider` in item) as {
+          readonly mockedRenameProvider: {
+            readonly documentSelector: vscode.DocumentSelector;
+            readonly renameProvider: vscode.RenameProvider;
+          };
+        };
 
-    it(`is included`, () => {
+        then(renameProvider);
+      });
+    };
+
+    renameProviderScenario(`is included`, (renameProvider) => {
       expect(renameProvider).not.toBeUndefined();
     });
 
-    it(`uses the correct document selector`, () => {
-      expect(renameProvider.mockedRenameProvider.documentSelector).toEqual({
-        scheme: `file`,
-        language: `skitscript`,
-      });
-    });
+    renameProviderScenario(
+      `uses the correct document selector`,
+      (renameProvider) => {
+        expect(renameProvider.mockedRenameProvider.documentSelector).toEqual({
+          scheme: `file`,
+          language: `skitscript`,
+        });
+      }
+    );
 
     describe(`provideRenameEdits`, () => {
-      describe(`when the document cannot be parsed`, () => {
-        let output: vscode.ProviderResult<vscode.WorkspaceEdit>;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the document cannot be parsed`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.provideRenameEdits(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -298,18 +320,15 @@ Location: Example Identifier A.`
               `Example Identifier`,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is before the first character of an identifier`, () => {
-        let output: vscode.ProviderResult<vscode.WorkspaceEdit>;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is before the first character of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.provideRenameEdits(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -325,18 +344,15 @@ Location: Example Identifier A.`
               ` \n \r \t Example Identifier C \n \r \t `,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is after the last character of an identifier`, () => {
-        let output: vscode.ProviderResult<vscode.WorkspaceEdit>;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is after the last character of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.provideRenameEdits(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -352,18 +368,15 @@ Location: Example Identifier A.`
               ` \n \r \t Example Identifier C \n \r \t `,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the first character of an identifier`, () => {
-        let output: vscode.ProviderResult<vscode.WorkspaceEdit>;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is on the first character of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.provideRenameEdits(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -379,9 +392,7 @@ Location: Example Identifier A.`
               ` \n \r \t Example Identifier C \n \r \t `,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected workspace edit`, () => {
           const expected = new WorkspaceEdit();
 
           expected.replace(
@@ -403,14 +414,13 @@ Location: Example Identifier A.`
           );
 
           expect(output).toEqual(expected as unknown as vscode.WorkspaceEdit);
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is in the middle of an identifier`, () => {
-        let output: vscode.ProviderResult<vscode.WorkspaceEdit>;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is in the middle of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.provideRenameEdits(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -426,9 +436,7 @@ Location: Example Identifier A.`
               ` \n \r \t Example Identifier C \n \r \t `,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected workspace edit`, () => {
           const expected = new WorkspaceEdit();
 
           expected.replace(
@@ -450,14 +458,13 @@ Location: Example Identifier A.`
           );
 
           expect(output).toEqual(expected as unknown as vscode.WorkspaceEdit);
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the last character of an identifier`, () => {
-        let output: vscode.ProviderResult<vscode.WorkspaceEdit>;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is on the last character of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.provideRenameEdits(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -473,9 +480,7 @@ Location: Example Identifier A.`
               ` \n \r \t Example Identifier C \n \r \t `,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected workspace edit`, () => {
           const expected = new WorkspaceEdit();
 
           expected.replace(
@@ -497,14 +502,13 @@ Location: Example Identifier A.`
           );
 
           expect(output).toEqual(expected as unknown as vscode.WorkspaceEdit);
-        });
-      });
+        }
+      );
 
-      describe(`when the identifier is invalid`, () => {
-        let output: vscode.ProviderResult<vscode.WorkspaceEdit>;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the identifier is invalid`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.provideRenameEdits(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -520,22 +524,17 @@ Location: Example Identifier A.`
               ` \n \r \t Example (Invalid) Identifier \n \r \t `,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
     });
 
     describe(`prepareRename`, () => {
-      describe(`when the document cannot be parsed`, () => {
-        let output: vscode.ProviderResult<
-          Range | { range: Range; placeholder: string }
-        >;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the document cannot be parsed`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.prepareRename?.(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -550,20 +549,15 @@ Location: Example Identifier A.`
               new Position(4, 24) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is before the first character of an identifier`, () => {
-        let output: vscode.ProviderResult<
-          Range | { range: Range; placeholder: string }
-        >;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is before the first character of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.prepareRename?.(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -578,20 +572,15 @@ Location: Example Identifier A.`
               new Position(4, 9) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is after the last character of an identifier`, () => {
-        let output: vscode.ProviderResult<
-          Range | { range: Range; placeholder: string }
-        >;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is after the last character of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.prepareRename?.(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -606,20 +595,15 @@ Location: Example Identifier A.`
               new Position(4, 30) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the first character of an identifier`, () => {
-        let output: vscode.ProviderResult<
-          Range | { range: Range; placeholder: string }
-        >;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is on the first character of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.prepareRename?.(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -634,23 +618,21 @@ Location: Example Identifier A.`
               new Position(4, 10) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected workspace edit`, () => {
           expect(output).toEqual({
-            range: new Range(new Position(4, 10), new Position(4, 30)),
+            range: new Range(
+              new Position(4, 10),
+              new Position(4, 30)
+            ) as unknown as vscode.Range,
             placeholder: `Example Identifier B`,
           });
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is in the middle of an identifier`, () => {
-        let output: vscode.ProviderResult<
-          Range | { range: Range; placeholder: string }
-        >;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is in the middle of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.prepareRename?.(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -665,23 +647,21 @@ Location: Example Identifier A.`
               new Position(4, 24) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected workspace edit`, () => {
           expect(output).toEqual({
-            range: new Range(new Position(4, 10), new Position(4, 30)),
+            range: new Range(
+              new Position(4, 10),
+              new Position(4, 30)
+            ) as unknown as vscode.Range,
             placeholder: `Example Identifier B`,
           });
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the last character of an identifier`, () => {
-        let output: vscode.ProviderResult<
-          Range | { range: Range; placeholder: string }
-        >;
-
-        beforeAll(() => {
-          output =
+      renameProviderScenario(
+        `when the cursor is on the last character of an identifier`,
+        (renameProvider) => {
+          const output =
             renameProvider.mockedRenameProvider.renameProvider.prepareRename?.(
               createTextDocument(
                 `Location: Example Identifier A.
@@ -696,61 +676,69 @@ Location: Example Identifier A.`
               new Position(4, 29) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected range`, () => {
           expect(output).toEqual({
-            range: new Range(new Position(4, 10), new Position(4, 30)),
+            range: new Range(
+              new Position(4, 10),
+              new Position(4, 30)
+            ) as unknown as vscode.Range,
             placeholder: `Example Identifier B`,
           });
-        });
-      });
+        }
+      );
     });
   });
 
   describe(`reference provider`, () => {
-    let referenceProvider: {
-      readonly mockedReferenceProvider: {
-        readonly documentSelector: vscode.DocumentSelector;
-        readonly referenceProvider: vscode.ReferenceProvider;
-      };
-    };
-
-    beforeAll(() => {
-      referenceProvider = (
-        context.subscriptions[0] as unknown as {
-          readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
-        }
-      ).mockedDisposableOf.find(
-        (item) => `mockedReferenceProvider` in item
-      ) as {
+    const referenceProviderScenario = (
+      description: string,
+      then: (renameProvider: {
         readonly mockedReferenceProvider: {
           readonly documentSelector: vscode.DocumentSelector;
           readonly referenceProvider: vscode.ReferenceProvider;
         };
-      };
-    });
+      }) => void
+    ): void => {
+      scenario(description, (context) => {
+        const referenceProvider = (
+          context.subscriptions[0] as unknown as {
+            readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
+          }
+        ).mockedDisposableOf.find(
+          (item) => `mockedReferenceProvider` in item
+        ) as {
+          readonly mockedReferenceProvider: {
+            readonly documentSelector: vscode.DocumentSelector;
+            readonly referenceProvider: vscode.ReferenceProvider;
+          };
+        };
 
-    it(`is included`, () => {
+        then(referenceProvider);
+      });
+    };
+
+    referenceProviderScenario(`is included`, (referenceProvider) => {
       expect(referenceProvider).not.toBeUndefined();
     });
 
-    it(`uses the correct document selector`, () => {
-      expect(
-        referenceProvider.mockedReferenceProvider.documentSelector
-      ).toEqual({
-        scheme: `file`,
-        language: `skitscript`,
-      });
-    });
+    referenceProviderScenario(
+      `uses the correct document selector`,
+      (referenceProvider) => {
+        expect(
+          referenceProvider.mockedReferenceProvider.documentSelector
+        ).toEqual({
+          scheme: `file`,
+          language: `skitscript`,
+        });
+      }
+    );
 
     describe(`provideReferences`, () => {
       describe(`when not including the definition`, () => {
-        describe(`when the document cannot be parsed`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the document cannot be parsed`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -768,18 +756,15 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns null`, () => {
             expect(output).toBeNull();
-          });
-        });
+          }
+        );
 
-        describe(`when the cursor is before the first character of an identifier`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is before the first character of an identifier`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -797,18 +782,15 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns null`, () => {
             expect(output).toBeNull();
-          });
-        });
+          }
+        );
 
-        describe(`when the cursor is after the last character of an identifier`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is after the last character of an identifier`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -826,18 +808,15 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns null`, () => {
             expect(output).toBeNull();
-          });
-        });
+          }
+        );
 
-        describe(`when the cursor is on the first character of a declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the first character of a declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -855,9 +834,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -867,15 +844,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is in the middle of a declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is in the middle of a declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -893,9 +869,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -905,15 +879,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the last character of a declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the last character of a declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -931,9 +904,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -943,15 +914,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the first character of a reference`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the first character of a reference`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -969,9 +939,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -981,15 +949,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is in the middle of a reference`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is in the middle of a reference`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1007,9 +974,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1019,15 +984,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the last character of a reference`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the last character of a reference`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1045,9 +1009,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1057,15 +1019,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the first character of an implicit declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the first character of an implicit declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1083,23 +1044,20 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
                 new Range(new Position(6, 24), new Position(6, 44))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is in the middle of an implicit declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is in the middle of an implicit declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1117,23 +1075,20 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
                 new Range(new Position(6, 24), new Position(6, 44))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the last character of an implicit declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the last character of an implicit declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1151,25 +1106,22 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
                 new Range(new Position(6, 24), new Position(6, 44))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
       });
 
       describe(`when including the definition`, () => {
-        describe(`when the document cannot be parsed`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the document cannot be parsed`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1187,18 +1139,15 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns null`, () => {
             expect(output).toBeNull();
-          });
-        });
+          }
+        );
 
-        describe(`when the cursor is before the first character of an identifier`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is before the first character of an identifier`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1216,18 +1165,15 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns null`, () => {
             expect(output).toBeNull();
-          });
-        });
+          }
+        );
 
-        describe(`when the cursor is after the last character of an identifier`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is after the last character of an identifier`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1245,18 +1191,15 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns null`, () => {
             expect(output).toBeNull();
-          });
-        });
+          }
+        );
 
-        describe(`when the cursor is on the first character of a declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the first character of a declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1274,9 +1217,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1290,15 +1231,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is in the middle of a declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is in the middle of a declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1316,9 +1256,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1332,15 +1270,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the last character of a declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the last character of a declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1358,9 +1295,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1374,15 +1309,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the first character of a reference`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the first character of a reference`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1400,9 +1334,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1416,15 +1348,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is in the middle of a reference`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is in the middle of a reference`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1442,9 +1373,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1458,15 +1387,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the last character of a reference`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the last character of a reference`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1484,9 +1412,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1500,15 +1426,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(8, 8), new Position(8, 28))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the first character of an implicit declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the first character of an implicit declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1526,9 +1451,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1538,15 +1461,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(6, 24), new Position(6, 44))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is in the middle of an implicit declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is in the middle of an implicit declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1564,9 +1486,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1576,15 +1496,14 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(6, 24), new Position(6, 44))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
 
-        describe(`when the cursor is on the last character of an implicit declaration`, () => {
-          let output: vscode.ProviderResult<ReadonlyArray<vscode.Location>>;
-
-          beforeAll(() => {
-            output =
+        referenceProviderScenario(
+          `when the cursor is on the last character of an implicit declaration`,
+          (referenceProvider) => {
+            const output =
               referenceProvider.mockedReferenceProvider.referenceProvider.provideReferences(
                 createTextDocument(
                   `Example Identifier A is Example Identifier B.
@@ -1602,9 +1521,7 @@ Example Identifier A is Example Identifier B.`
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
-          });
 
-          it(`returns the expected locations`, () => {
             expect(output).toEqual([
               new Location(
                 `Example Text Document Uri`,
@@ -1614,57 +1531,62 @@ Example Identifier A is Example Identifier B.`
                 `Example Text Document Uri`,
                 new Range(new Position(6, 24), new Position(6, 44))
               ),
-            ] as unknown as ReadonlyArray<vscode.Location>);
-          });
-        });
+            ] as unknown as vscode.Location[]);
+          }
+        );
       });
     });
   });
 
   describe(`definition provider`, () => {
-    let definitionProvider: {
-      readonly mockedDefinitionProvider: {
-        readonly documentSelector: vscode.DocumentSelector;
-        readonly definitionProvider: vscode.DefinitionProvider;
-      };
-    };
-
-    beforeAll(() => {
-      definitionProvider = (
-        context.subscriptions[0] as unknown as {
-          readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
-        }
-      ).mockedDisposableOf.find(
-        (item) => `mockedDefinitionProvider` in item
-      ) as {
+    const definitionProviderScenario = (
+      description: string,
+      then: (renameProvider: {
         readonly mockedDefinitionProvider: {
           readonly documentSelector: vscode.DocumentSelector;
           readonly definitionProvider: vscode.DefinitionProvider;
         };
-      };
-    });
+      }) => void
+    ): void => {
+      scenario(description, (context) => {
+        const definitionProvider = (
+          context.subscriptions[0] as unknown as {
+            readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
+          }
+        ).mockedDisposableOf.find(
+          (item) => `mockedDefinitionProvider` in item
+        ) as {
+          readonly mockedDefinitionProvider: {
+            readonly documentSelector: vscode.DocumentSelector;
+            readonly definitionProvider: vscode.DefinitionProvider;
+          };
+        };
 
-    it(`is included`, () => {
+        then(definitionProvider);
+      });
+    };
+
+    definitionProviderScenario(`is included`, (definitionProvider) => {
       expect(definitionProvider).not.toBeUndefined();
     });
 
-    it(`uses the correct document selector`, () => {
-      expect(
-        definitionProvider.mockedDefinitionProvider.documentSelector
-      ).toEqual({
-        scheme: `file`,
-        language: `skitscript`,
-      });
-    });
+    definitionProviderScenario(
+      `uses the correct document selector`,
+      (definitionProvider) => {
+        expect(
+          definitionProvider.mockedDefinitionProvider.documentSelector
+        ).toEqual({
+          scheme: `file`,
+          language: `skitscript`,
+        });
+      }
+    );
 
     describe(`provideReferences`, () => {
-      describe(`when the document cannot be parsed`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the document cannot be parsed`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1681,20 +1603,15 @@ Example Identifier A is Example Identifier B.`
               new Position(5, 6) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is before the first character of an identifier`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is before the first character of an identifier`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1711,20 +1628,15 @@ Example Identifier A is Example Identifier B.`
               new Position(5, 1) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is after the last character of an identifier`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is after the last character of an identifier`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1741,20 +1653,15 @@ Example Identifier A is Example Identifier B.`
               new Position(5, 22) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns null`, () => {
           expect(output).toBeNull();
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the first character of a declaration`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is on the first character of a declaration`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1771,25 +1678,20 @@ Example Identifier A is Example Identifier B.`
               new Position(5, 2) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected location`, () => {
           expect(output).toEqual(
             new Location(
               `Example Text Document Uri`,
               new Range(new Position(5, 2), new Position(5, 22))
             ) as unknown as vscode.Location
           );
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is in the middle of a declaration`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is in the middle of a declaration`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1806,25 +1708,20 @@ Example Identifier A is Example Identifier B.`
               new Position(5, 6) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected location`, () => {
           expect(output).toEqual(
             new Location(
               `Example Text Document Uri`,
               new Range(new Position(5, 2), new Position(5, 22))
             ) as unknown as vscode.Location
           );
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the last character of a declaration`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is on the last character of a declaration`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1841,25 +1738,20 @@ Example Identifier A is Example Identifier B.`
               new Position(5, 21) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected location`, () => {
           expect(output).toEqual(
             new Location(
               `Example Text Document Uri`,
               new Range(new Position(5, 2), new Position(5, 22))
             ) as unknown as vscode.Location
           );
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the first character of a reference`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is on the first character of a reference`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1876,25 +1768,20 @@ Example Identifier A is Example Identifier B.`
               new Position(3, 8) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected location`, () => {
           expect(output).toEqual(
             new Location(
               `Example Text Document Uri`,
               new Range(new Position(5, 2), new Position(5, 22))
             ) as unknown as vscode.Location
           );
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is in the middle of a reference`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is in the middle of a reference`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1911,25 +1798,20 @@ Example Identifier A is Example Identifier B.`
               new Position(3, 12) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected location`, () => {
           expect(output).toEqual(
             new Location(
               `Example Text Document Uri`,
               new Range(new Position(5, 2), new Position(5, 22))
             ) as unknown as vscode.Location
           );
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the last character of a reference`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is on the last character of a reference`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1946,25 +1828,20 @@ Example Identifier A is Example Identifier B.`
               new Position(3, 27) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected location`, () => {
           expect(output).toEqual(
             new Location(
               `Example Text Document Uri`,
               new Range(new Position(5, 2), new Position(5, 22))
             ) as unknown as vscode.Location
           );
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the first character of an implicit declaration`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is on the first character of an implicit declaration`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -1981,25 +1858,20 @@ Example Identifier A is Example Identifier B.`
               new Position(2, 24) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected locations`, () => {
           expect(output).toEqual(
             new Location(
               `Example Text Document Uri`,
               new Range(new Position(2, 24), new Position(2, 44))
             ) as unknown as vscode.Location
           );
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is in the middle of an implicit declaration`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is in the middle of an implicit declaration`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -2016,25 +1888,20 @@ Example Identifier A is Example Identifier B.`
               new Position(2, 30) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected locations`, () => {
           expect(output).toEqual(
             new Location(
               `Example Text Document Uri`,
               new Range(new Position(2, 24), new Position(2, 44))
             ) as unknown as vscode.Location
           );
-        });
-      });
+        }
+      );
 
-      describe(`when the cursor is on the last character of an implicit declaration`, () => {
-        let output: vscode.ProviderResult<
-          vscode.Definition | ReadonlyArray<vscode.DefinitionLink>
-        >;
-
-        beforeAll(() => {
-          output =
+      definitionProviderScenario(
+        `when the cursor is on the last character of an implicit declaration`,
+        (definitionProvider) => {
+          const output =
             definitionProvider.mockedDefinitionProvider.definitionProvider.provideDefinition(
               createTextDocument(
                 `Example Identifier A is Example Identifier B.
@@ -2051,17 +1918,15 @@ Example Identifier A is Example Identifier B.`
               new Position(2, 43) as vscode.Position,
               {} as vscode.CancellationToken
             );
-        });
 
-        it(`returns the expected locations`, () => {
           expect(output).toEqual(
             new Location(
               `Example Text Document Uri`,
               new Range(new Position(2, 24), new Position(2, 44))
             ) as unknown as vscode.Location
           );
-        });
-      });
+        }
+      );
     });
   });
 });
