@@ -33,6 +33,70 @@ class WorkspaceEdit {
   }
 }
 
+class DiagnosticRelatedInformation {
+  constructor(public location: Location, public message: string) {}
+}
+
+class Diagnostic {
+  source?: string;
+
+  code?:
+    | string
+    | number
+    | {
+        value: string | number;
+        target: vscode.Uri;
+      };
+
+  relatedInformation?: DiagnosticRelatedInformation[];
+
+  tags?: vscode.DiagnosticTag[];
+
+  constructor(
+    public range: Range,
+    public message: string,
+    public severity?:
+      | `Test Warning DiagnosticSeverity`
+      | `Test Error DiagnosticSeverity`
+  ) {}
+}
+
+const createDiagnostic = (
+  range: Range,
+  message: string,
+  severity: `Test Warning DiagnosticSeverity` | `Test Error DiagnosticSeverity`,
+  source?: string,
+  code?:
+    | string
+    | number
+    | {
+        value: string | number;
+        target: vscode.Uri;
+      },
+  relatedInformation?: DiagnosticRelatedInformation[],
+  tags?: vscode.DiagnosticTag[]
+): vscode.Diagnostic => {
+  const output = new Diagnostic(range, message, severity);
+
+  if (source !== undefined) {
+    output.source = source;
+  }
+
+  if (code !== undefined) {
+    output.code = code;
+  }
+
+  if (relatedInformation !== undefined) {
+    output.relatedInformation = relatedInformation;
+  }
+
+  if (tags !== undefined) {
+    output.tags = tags;
+  }
+
+  return output as unknown as vscode.Diagnostic;
+};
+
 const createTextDocument = (text: string): vscode.TextDocument => ({
   uri: `Example Text Document Uri` as unknown as vscode.Uri,
   fileName: `Example File Name`,
@@ -82,64 +146,111 @@ const createTextDocument = (text: string): vscode.TextDocument => ({
 });
 
 describe(`on activation`, () => {
-  let extension: {
-    activate(context: vscode.ExtensionContext): void;
-    __set__(attribute: string, value: unknown): void;
-  };
-
-  beforeAll(() => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    extension = rewire(`.`);
-
-    extension.__set__(`vscode`, {
-      Range,
-      Position,
-      Disposable,
-      WorkspaceEdit,
-      Location,
-      languages: {
-        registerRenameProvider(
-          documentSelector: vscode.DocumentSelector,
-          renameProvider: vscode.RenameProvider
-        ) {
-          return {
-            mockedRenameProvider: {
-              documentSelector,
-              renameProvider,
-            },
-          };
-        },
-        registerReferenceProvider(
-          documentSelector: vscode.DocumentSelector,
-          referenceProvider: vscode.ReferenceProvider
-        ) {
-          return {
-            mockedReferenceProvider: {
-              documentSelector,
-              referenceProvider,
-            },
-          };
-        },
-        registerDefinitionProvider(
-          documentSelector: vscode.DocumentSelector,
-          definitionProvider: vscode.DefinitionProvider
-        ) {
-          return {
-            mockedDefinitionProvider: {
-              documentSelector,
-              definitionProvider,
-            },
-          };
-        },
-      },
-    });
-  });
-
   const scenario = (
     description: string,
-    then: (context: vscode.ExtensionContext) => void
+    activeTextEditorFactory: () => undefined | vscode.TextEditor,
+    then: (
+      diagnosticCollection: {
+        set: jasmine.Spy;
+        delete: jasmine.Spy;
+      },
+      context: vscode.ExtensionContext
+    ) => void
   ): void => {
     it(description, () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const extension = rewire(`.`);
+
+      const diagnosticCollection = {
+        set: jasmine.createSpy(`diagnosticCollection`),
+        delete: jasmine.createSpy(`delete`),
+      };
+
+      const createDiagnosticCollection = jasmine
+        .createSpy(`createDiagnosticCollection`)
+        .and.returnValue(diagnosticCollection);
+
+      extension.__set__(`vscode`, {
+        Range,
+        Position,
+        Disposable,
+        WorkspaceEdit,
+        Location,
+        Diagnostic,
+        DiagnosticSeverity: {
+          Warning: `Test Warning DiagnosticSeverity`,
+          Error: `Test Error DiagnosticSeverity`,
+        },
+        languages: {
+          registerRenameProvider(
+            documentSelector: vscode.DocumentSelector,
+            renameProvider: vscode.RenameProvider
+          ) {
+            return {
+              mockedRenameProvider: {
+                documentSelector,
+                renameProvider,
+              },
+            };
+          },
+          registerReferenceProvider(
+            documentSelector: vscode.DocumentSelector,
+            referenceProvider: vscode.ReferenceProvider
+          ) {
+            return {
+              mockedReferenceProvider: {
+                documentSelector,
+                referenceProvider,
+              },
+            };
+          },
+          registerDefinitionProvider(
+            documentSelector: vscode.DocumentSelector,
+            definitionProvider: vscode.DefinitionProvider
+          ) {
+            return {
+              mockedDefinitionProvider: {
+                documentSelector,
+                definitionProvider,
+              },
+            };
+          },
+          createDiagnosticCollection,
+        },
+        workspace: {
+          onDidChangeTextDocument(
+            callback: (textEditor: vscode.TextEditor) => void
+          ) {
+            return {
+              mockedOnDidChangeTextDocument: {
+                callback,
+              },
+            };
+          },
+          onDidCloseTextDocument(
+            callback: (textEditor: vscode.TextDocument) => void
+          ) {
+            return {
+              mockedOnDidCloseTextDocument: {
+                callback,
+              },
+            };
+          },
+        },
+        window: {
+          activeTextEditor: activeTextEditorFactory(),
+          onDidChangeActiveTextEditor(
+            callback: (textEditor?: vscode.TextEditor) => void
+          ) {
+            return {
+              mockedOnDidChangeActiveTextEditor: {
+                callback,
+              },
+            };
+          },
+        },
+      });
+
       const context = {
         subscriptions: [],
         workspaceState: {
@@ -241,16 +352,23 @@ describe(`on activation`, () => {
 
       extension[`activate`](context);
 
-      then(context);
+      then(diagnosticCollection, context);
+
+      expect(createDiagnosticCollection).toHaveBeenCalledTimes(1);
     });
   };
 
   scenario(
     `adds one disposable item to the context with the expected number of providers`,
-    (context) => {
+    () => undefined,
+    (_, context) => {
       expect(context.subscriptions).toEqual([
         {
           mockedDisposableOf: [
+            jasmine.anything(),
+            jasmine.anything(),
+            jasmine.anything(),
+            jasmine.anything(),
             jasmine.anything(),
             jasmine.anything(),
             jasmine.anything(),
@@ -270,20 +388,31 @@ describe(`on activation`, () => {
         };
       }) => void
     ): void => {
-      scenario(description, (context) => {
-        const renameProvider = (
-          context.subscriptions[0] as unknown as {
-            readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
-          }
-        ).mockedDisposableOf.find((item) => `mockedRenameProvider` in item) as {
-          readonly mockedRenameProvider: {
-            readonly documentSelector: vscode.DocumentSelector;
-            readonly renameProvider: vscode.RenameProvider;
+      scenario(
+        description,
+        () => undefined,
+        (diagnosticCollection, context) => {
+          const renameProvider = (
+            context.subscriptions[0] as unknown as {
+              readonly mockedDisposableOf: ReadonlyArray<
+                Record<string, unknown>
+              >;
+            }
+          ).mockedDisposableOf.find(
+            (item) => `mockedRenameProvider` in item
+          ) as {
+            readonly mockedRenameProvider: {
+              readonly documentSelector: vscode.DocumentSelector;
+              readonly renameProvider: vscode.RenameProvider;
+            };
           };
-        };
 
-        then(renameProvider);
-      });
+          then(renameProvider);
+
+          expect(diagnosticCollection.delete).not.toHaveBeenCalled();
+          expect(diagnosticCollection.set).not.toHaveBeenCalled();
+        }
+      );
     };
 
     renameProviderScenario(`is included`, (renameProvider) => {
@@ -699,22 +828,31 @@ Location: Example Identifier A.`
         };
       }) => void
     ): void => {
-      scenario(description, (context) => {
-        const referenceProvider = (
-          context.subscriptions[0] as unknown as {
-            readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
-          }
-        ).mockedDisposableOf.find(
-          (item) => `mockedReferenceProvider` in item
-        ) as {
-          readonly mockedReferenceProvider: {
-            readonly documentSelector: vscode.DocumentSelector;
-            readonly referenceProvider: vscode.ReferenceProvider;
+      scenario(
+        description,
+        () => undefined,
+        (diagnosticCollection, context) => {
+          const referenceProvider = (
+            context.subscriptions[0] as unknown as {
+              readonly mockedDisposableOf: ReadonlyArray<
+                Record<string, unknown>
+              >;
+            }
+          ).mockedDisposableOf.find(
+            (item) => `mockedReferenceProvider` in item
+          ) as {
+            readonly mockedReferenceProvider: {
+              readonly documentSelector: vscode.DocumentSelector;
+              readonly referenceProvider: vscode.ReferenceProvider;
+            };
           };
-        };
 
-        then(referenceProvider);
-      });
+          then(referenceProvider);
+
+          expect(diagnosticCollection.delete).not.toHaveBeenCalled();
+          expect(diagnosticCollection.set).not.toHaveBeenCalled();
+        }
+      );
     };
 
     referenceProviderScenario(`is included`, (referenceProvider) => {
@@ -1548,22 +1686,31 @@ Example Identifier A is Example Identifier B.`
         };
       }) => void
     ): void => {
-      scenario(description, (context) => {
-        const definitionProvider = (
-          context.subscriptions[0] as unknown as {
-            readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
-          }
-        ).mockedDisposableOf.find(
-          (item) => `mockedDefinitionProvider` in item
-        ) as {
-          readonly mockedDefinitionProvider: {
-            readonly documentSelector: vscode.DocumentSelector;
-            readonly definitionProvider: vscode.DefinitionProvider;
+      scenario(
+        description,
+        () => undefined,
+        (diagnosticCollection, context) => {
+          const definitionProvider = (
+            context.subscriptions[0] as unknown as {
+              readonly mockedDisposableOf: ReadonlyArray<
+                Record<string, unknown>
+              >;
+            }
+          ).mockedDisposableOf.find(
+            (item) => `mockedDefinitionProvider` in item
+          ) as {
+            readonly mockedDefinitionProvider: {
+              readonly documentSelector: vscode.DocumentSelector;
+              readonly definitionProvider: vscode.DefinitionProvider;
+            };
           };
-        };
 
-        then(definitionProvider);
-      });
+          then(definitionProvider);
+
+          expect(diagnosticCollection.delete).not.toHaveBeenCalled();
+          expect(diagnosticCollection.set).not.toHaveBeenCalled();
+        }
+      );
     };
 
     definitionProviderScenario(`is included`, (definitionProvider) => {
@@ -1929,4 +2076,339 @@ Example Identifier A is Example Identifier B.`
       );
     });
   });
+
+  scenario(
+    `includes the created diagnostic collection`,
+    () => undefined,
+    (diagnosticCollection, context) => {
+      const disposables = context.subscriptions[0] as unknown as {
+        readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
+      };
+
+      expect(disposables.mockedDisposableOf).toContain(diagnosticCollection);
+
+      expect(diagnosticCollection.delete).not.toHaveBeenCalled();
+      expect(diagnosticCollection.set).not.toHaveBeenCalled();
+    }
+  );
+
+  const diagnosticCollectionChangeScenario = (
+    description: string,
+    activeTextEditorFactory: (text: string) => undefined | vscode.TextEditor,
+    then: (context: vscode.ExtensionContext, text: string) => void
+  ): void => {
+    describe(description, () => {
+      const subScenario = (
+        description: string,
+        text: string,
+        diagnostics: ReadonlyArray<vscode.Diagnostic>
+      ) => {
+        scenario(
+          description,
+          () => activeTextEditorFactory(text),
+          (diagnosticCollection, context) => {
+            then(context, text);
+
+            expect(diagnosticCollection.delete).not.toHaveBeenCalled();
+            expect(diagnosticCollection.set).toHaveBeenCalledTimes(1);
+            expect(diagnosticCollection.set).toHaveBeenCalledWith(
+              `Example Text Document Uri`,
+              diagnostics
+            );
+          }
+        );
+      };
+
+      subScenario(
+        `valid`,
+        `Set Example Flag and Example Flag.
+~ Unreferenced ~
+Clear Example FLAG and Other.
+Jump to EOF.
+Location: Example Background.
+~ EOF ~`,
+        [
+          createDiagnostic(
+            new Range(new Position(0, 21), new Position(0, 33)),
+            `This item appears more than once in this list; this is likely to be a mistake.`,
+            `Test Warning DiagnosticSeverity`,
+            undefined,
+            undefined,
+            undefined,
+            undefined
+          ),
+          createDiagnostic(
+            new Range(new Position(2, 6), new Position(2, 18)),
+            `This is written differently earlier in this document; this is likely to be a mistake.`,
+            `Test Warning DiagnosticSeverity`,
+            undefined,
+            undefined,
+            undefined,
+            undefined
+          ),
+          createDiagnostic(
+            new Range(new Position(4, 0), new Position(4, 29)),
+            `This line (and every line following until the next label or the end of the file) are impossible to reach, which is likely to be a mistake.`,
+            `Test Warning DiagnosticSeverity`,
+            undefined,
+            undefined,
+            undefined,
+            undefined
+          ),
+          createDiagnostic(
+            new Range(new Position(1, 2), new Position(1, 14)),
+            `This label is never referenced; this is likely to be a mistake.`,
+            `Test Warning DiagnosticSeverity`,
+            undefined,
+            undefined,
+            undefined,
+            undefined
+          ),
+          createDiagnostic(
+            new Range(new Position(0, 4), new Position(0, 16)),
+            `This flag is never used; this is likely to be a mistake.`,
+            `Test Warning DiagnosticSeverity`,
+            undefined,
+            undefined,
+            undefined,
+            undefined
+          ),
+          createDiagnostic(
+            new Range(new Position(2, 23), new Position(2, 28)),
+            `This flag is never set; this is likely to be a mistake.`,
+            `Test Warning DiagnosticSeverity`,
+            undefined,
+            undefined,
+            undefined,
+            undefined
+          ),
+          createDiagnostic(
+            new Range(new Position(2, 23), new Position(2, 28)),
+            `This flag is never used; this is likely to be a mistake.`,
+            `Test Warning DiagnosticSeverity`,
+            undefined,
+            undefined,
+            undefined,
+            undefined
+          ),
+          createDiagnostic(
+            new Range(new Position(5, 2), new Position(5, 5)),
+            `This label immediately leads elsewhere; this is likely to be a mistake.`,
+            `Test Warning DiagnosticSeverity`,
+            undefined,
+            undefined,
+            undefined,
+            undefined
+          ),
+        ]
+      );
+
+      subScenario(
+        `duplicate label`,
+        `~ Duplicate ~
+~ Duplicate ~`,
+        [
+          createDiagnostic(
+            new Range(new Position(1, 2), new Position(1, 11)),
+            `This label has the same (normalized) name as another previously declared.`,
+            `Test Error DiagnosticSeverity`,
+            undefined,
+            undefined,
+            undefined,
+            undefined
+          ),
+        ]
+      );
+
+      subScenario(`incomplete escape sequence`, `  \\`, [
+        createDiagnostic(
+          new Range(new Position(0, 2), new Position(0, 3)),
+          `This formatted text ends with a backslash; if you meant to insert a literal backslash, enter two (\\\\).`,
+          `Test Error DiagnosticSeverity`,
+          undefined,
+          undefined,
+          undefined,
+          undefined
+        ),
+      ]);
+
+      subScenario(`invalid escape sequence`, `  \\?`, [
+        createDiagnostic(
+          new Range(new Position(0, 2), new Position(0, 4)),
+          `This pair of characters resemble an escape sequence, but this is not a supported escape sequence; if you meant to insert a literal backslash, enter two (\\\\).`,
+          `Test Error DiagnosticSeverity`,
+          undefined,
+          undefined,
+          undefined,
+          undefined
+        ),
+      ]);
+
+      subScenario(`undefined label`, `Jump to undefined.`, [
+        createDiagnostic(
+          new Range(new Position(0, 8), new Position(0, 17)),
+          `This label has not been declared.`,
+          `Test Error DiagnosticSeverity`,
+          undefined,
+          undefined,
+          undefined,
+          undefined
+        ),
+      ]);
+
+      subScenario(`unparsable`, `Something invalid.`, [
+        createDiagnostic(
+          new Range(new Position(0, 0), new Position(0, 18)),
+          `This line's format was not understood.  If it is intended to be dialog, indent it.  Otherwise, ensure that no identifiers include keywords, that the line ends with a full stop and that its grammar is correct.`,
+          `Test Error DiagnosticSeverity`,
+          undefined,
+          undefined,
+          undefined,
+          undefined
+        ),
+      ]);
+
+      subScenario(`unterminated bold`, `  **`, [
+        createDiagnostic(
+          new Range(new Position(0, 2), new Position(0, 4)),
+          `A run of bold text is started using two asterisks (**) but is never ended.  If you did not intend to start a run of bold text, escape the asterisks with backslashes (\\*\\*).  Otherwise, end the bold text before the end of the line with two asterisks (**).`,
+          `Test Error DiagnosticSeverity`,
+          undefined,
+          undefined,
+          undefined,
+          undefined
+        ),
+      ]);
+
+      subScenario(`unterminated code`, `  \``, [
+        createDiagnostic(
+          new Range(new Position(0, 2), new Position(0, 3)),
+          `A run of code is started using a backtick (\`) but is never ended.  If you did not intend to start a run of bold text, escape the backtick with a backslash (\\\`).  Otherwise, end the code before the end of the line with a backtick (\`).`,
+          `Test Error DiagnosticSeverity`,
+          undefined,
+          undefined,
+          undefined,
+          undefined
+        ),
+      ]);
+
+      subScenario(`unterminated italic`, `  *`, [
+        createDiagnostic(
+          new Range(new Position(0, 2), new Position(0, 3)),
+          `A run of italic text is started using an asterisk (*) but is never ended.  If you did not intend to start a run of italic text, escape the asterisk with backslashes (\\*).  Otherwise, end the bold text before the end of the line with an asterisk (*).`,
+          `Test Error DiagnosticSeverity`,
+          undefined,
+          undefined,
+          undefined,
+          undefined
+        ),
+      ]);
+    });
+  };
+
+  diagnosticCollectionChangeScenario(
+    `active text editor set during activation`,
+    (text) =>
+      ({ document: createTextDocument(text) } as unknown as vscode.TextEditor),
+    () => {
+      // Empty.
+    }
+  );
+
+  scenario(
+    `active text editor changed to undefined`,
+    () => undefined,
+    (diagnosticCollection, context) => {
+      const onDidChangeActiveTextEditor = (
+        context.subscriptions[0] as unknown as {
+          readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
+        }
+      ).mockedDisposableOf.find(
+        (item) => `mockedOnDidChangeActiveTextEditor` in item
+      ) as {
+        readonly mockedOnDidChangeActiveTextEditor: {
+          callback: (textEditor?: vscode.TextEditor) => void;
+        };
+      };
+
+      onDidChangeActiveTextEditor.mockedOnDidChangeActiveTextEditor.callback(
+        undefined
+      );
+
+      expect(diagnosticCollection.delete).not.toHaveBeenCalled();
+      expect(diagnosticCollection.set).not.toHaveBeenCalled();
+    }
+  );
+
+  diagnosticCollectionChangeScenario(
+    `active text editor changed to non-undefined`,
+    () => undefined,
+    (context, text) => {
+      const onDidChangeActiveTextEditor = (
+        context.subscriptions[0] as unknown as {
+          readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
+        }
+      ).mockedDisposableOf.find(
+        (item) => `mockedOnDidChangeActiveTextEditor` in item
+      ) as {
+        readonly mockedOnDidChangeActiveTextEditor: {
+          callback: (textEditor?: vscode.TextEditor) => void;
+        };
+      };
+
+      onDidChangeActiveTextEditor.mockedOnDidChangeActiveTextEditor.callback({
+        document: createTextDocument(text),
+      } as unknown as vscode.TextEditor);
+    }
+  );
+
+  diagnosticCollectionChangeScenario(
+    `text document changed`,
+    () => undefined,
+    (context, text) => {
+      const onDidChangeTextDocument = (
+        context.subscriptions[0] as unknown as {
+          readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
+        }
+      ).mockedDisposableOf.find(
+        (item) => `mockedOnDidChangeTextDocument` in item
+      ) as {
+        readonly mockedOnDidChangeTextDocument: {
+          callback: (textEditor: vscode.TextEditor) => void;
+        };
+      };
+
+      onDidChangeTextDocument.mockedOnDidChangeTextDocument.callback({
+        document: createTextDocument(text),
+      } as unknown as vscode.TextEditor);
+    }
+  );
+
+  scenario(
+    `text document closed`,
+    () => undefined,
+    (diagnosticCollection, context) => {
+      const onDidCloseTextDocument = (
+        context.subscriptions[0] as unknown as {
+          readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
+        }
+      ).mockedDisposableOf.find(
+        (item) => `mockedOnDidCloseTextDocument` in item
+      ) as {
+        readonly mockedOnDidCloseTextDocument: {
+          callback: (textEditor: vscode.TextDocument) => void;
+        };
+      };
+
+      onDidCloseTextDocument.mockedOnDidCloseTextDocument.callback(
+        createTextDocument(`Example Text`)
+      );
+
+      expect(diagnosticCollection.delete).toHaveBeenCalledTimes(1);
+      expect(diagnosticCollection.delete).toHaveBeenCalledWith(
+        `Example Text Document Uri`
+      );
+      expect(diagnosticCollection.set).not.toHaveBeenCalled();
+    }
+  );
 });
