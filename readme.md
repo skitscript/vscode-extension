@@ -2,6 +2,15 @@
 
 Adds support for Skitscript documents to Visual Studio Code.
 
+## Features
+
+- Syntax highlighting.
+- "Find References" (shift+F12).
+- Find declaration (F12).
+- Rename (F2).
+- Runs the [Skitscript parser](https://github.com/skitscript/parser-nodejs)
+  and shows warnings and errors in the document and problems pane.
+
 ## Installation
 
 You may be prompted to install this extension on opening a file with an
