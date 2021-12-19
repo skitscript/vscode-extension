@@ -9,7 +9,7 @@
   "engineStrict": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/skitscript/extension-nodejs"
+    "url": "https://github.com/skitscript/extension-vscode"
   },
   "publishConfig": {
     "access": "public"
