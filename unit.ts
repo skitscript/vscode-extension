@@ -97,11 +97,14 @@ const createDiagnostic = (
   return output as unknown as vscode.Diagnostic;
 };
 
-const createTextDocument = (text: string): vscode.TextDocument => ({
+const createTextDocument = (
+  text: string,
+  languageId: string
+): vscode.TextDocument => ({
   uri: `Example Text Document Uri` as unknown as vscode.Uri,
   fileName: `Example File Name`,
   isUntitled: false,
-  languageId: `skitscript`,
+  languageId,
   version: 1234,
   isDirty: true,
   isClosed: false,
@@ -162,8 +165,8 @@ describe(`on activation`, () => {
       const extension = rewire(`.`);
 
       const diagnosticCollection = {
-        set: jasmine.createSpy(`diagnosticCollection`),
-        delete: jasmine.createSpy(`delete`),
+        set: jasmine.createSpy(`diagnosticCollection.set`),
+        delete: jasmine.createSpy(`diagnosticCollection.delete`),
       };
 
       const createDiagnosticCollection = jasmine
@@ -443,7 +446,8 @@ Example Identifier B isnt Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 24) as vscode.Position,
               `Example Identifier`,
@@ -467,7 +471,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 9) as vscode.Position,
               ` \n \r \t Example Identifier C \n \r \t `,
@@ -491,7 +496,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 31) as vscode.Position,
               ` \n \r \t Example Identifier C \n \r \t `,
@@ -515,7 +521,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 10) as vscode.Position,
               ` \n \r \t Example Identifier C \n \r \t `,
@@ -559,7 +566,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 24) as vscode.Position,
               ` \n \r \t Example Identifier C \n \r \t `,
@@ -603,7 +611,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 30) as vscode.Position,
               ` \n \r \t Example Identifier C \n \r \t `,
@@ -647,7 +656,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 24) as vscode.Position,
               ` \n \r \t Example (Invalid) Identifier \n \r \t `,
@@ -673,7 +683,8 @@ Example Identifier B isnt Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 24) as vscode.Position,
               {} as vscode.CancellationToken
@@ -696,7 +707,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 9) as vscode.Position,
               {} as vscode.CancellationToken
@@ -719,7 +731,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 31) as vscode.Position,
               {} as vscode.CancellationToken
@@ -742,7 +755,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 10) as vscode.Position,
               {} as vscode.CancellationToken
@@ -771,7 +785,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 24) as vscode.Position,
               {} as vscode.CancellationToken
@@ -800,7 +815,8 @@ Example Identifier B is Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.
 Location: Example Identifier B.
-Location: Example Identifier A.`
+Location: Example Identifier A.`,
+                `skitscript`
               ),
               new Position(4, 30) as vscode.Position,
               {} as vscode.CancellationToken
@@ -888,7 +904,8 @@ Example Identifier A isnt Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 6) as vscode.Position,
                 { includeDeclaration: false },
@@ -914,7 +931,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 1) as vscode.Position,
                 { includeDeclaration: false },
@@ -940,7 +958,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 23) as vscode.Position,
                 { includeDeclaration: false },
@@ -966,7 +985,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 2) as vscode.Position,
                 { includeDeclaration: false },
@@ -1001,7 +1021,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 6) as vscode.Position,
                 { includeDeclaration: false },
@@ -1036,7 +1057,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 22) as vscode.Position,
                 { includeDeclaration: false },
@@ -1071,7 +1093,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(3, 8) as vscode.Position,
                 { includeDeclaration: false },
@@ -1106,7 +1129,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(3, 12) as vscode.Position,
                 { includeDeclaration: false },
@@ -1141,7 +1165,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(3, 28) as vscode.Position,
                 { includeDeclaration: false },
@@ -1176,7 +1201,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(2, 24) as vscode.Position,
                 { includeDeclaration: false },
@@ -1207,7 +1233,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(2, 30) as vscode.Position,
                 { includeDeclaration: false },
@@ -1238,7 +1265,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(2, 44) as vscode.Position,
                 { includeDeclaration: false },
@@ -1271,7 +1299,8 @@ Example Identifier A isnt Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 6) as vscode.Position,
                 { includeDeclaration: true },
@@ -1297,7 +1326,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 1) as vscode.Position,
                 { includeDeclaration: true },
@@ -1323,7 +1353,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 23) as vscode.Position,
                 { includeDeclaration: true },
@@ -1349,7 +1380,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 2) as vscode.Position,
                 { includeDeclaration: true },
@@ -1388,7 +1420,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 6) as vscode.Position,
                 { includeDeclaration: true },
@@ -1427,7 +1460,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(5, 22) as vscode.Position,
                 { includeDeclaration: true },
@@ -1466,7 +1500,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(3, 8) as vscode.Position,
                 { includeDeclaration: true },
@@ -1505,7 +1540,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(3, 12) as vscode.Position,
                 { includeDeclaration: true },
@@ -1544,7 +1580,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(3, 28) as vscode.Position,
                 { includeDeclaration: true },
@@ -1583,7 +1620,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(2, 24) as vscode.Position,
                 { includeDeclaration: true },
@@ -1618,7 +1656,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(2, 30) as vscode.Position,
                 { includeDeclaration: true },
@@ -1653,7 +1692,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                  `skitscript`
                 ),
                 new Position(2, 44) as vscode.Position,
                 { includeDeclaration: true },
@@ -1745,7 +1785,8 @@ Example Identifier A isnt Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(5, 6) as vscode.Position,
               {} as vscode.CancellationToken
@@ -1770,7 +1811,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(5, 1) as vscode.Position,
               {} as vscode.CancellationToken
@@ -1795,7 +1837,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(5, 23) as vscode.Position,
               {} as vscode.CancellationToken
@@ -1820,7 +1863,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(5, 2) as vscode.Position,
               {} as vscode.CancellationToken
@@ -1850,7 +1894,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(5, 6) as vscode.Position,
               {} as vscode.CancellationToken
@@ -1880,7 +1925,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(5, 22) as vscode.Position,
               {} as vscode.CancellationToken
@@ -1910,7 +1956,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(3, 8) as vscode.Position,
               {} as vscode.CancellationToken
@@ -1940,7 +1987,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(3, 12) as vscode.Position,
               {} as vscode.CancellationToken
@@ -1970,7 +2018,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(3, 28) as vscode.Position,
               {} as vscode.CancellationToken
@@ -2000,7 +2049,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(2, 24) as vscode.Position,
               {} as vscode.CancellationToken
@@ -2030,7 +2080,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(2, 30) as vscode.Position,
               {} as vscode.CancellationToken
@@ -2060,7 +2111,8 @@ Example Identifier A is Example Identifier B.
 Example Identifier B is Example Identifier A.
 Jump to Example Identifier B.
 Jump to Example Identifier A.
-Example Identifier A is Example Identifier B.`
+Example Identifier A is Example Identifier B.`,
+                `skitscript`
               ),
               new Position(2, 44) as vscode.Position,
               {} as vscode.CancellationToken
@@ -2094,8 +2146,15 @@ Example Identifier A is Example Identifier B.`
 
   const diagnosticCollectionChangeScenario = (
     description: string,
-    activeTextEditorFactory: (text: string) => undefined | vscode.TextEditor,
-    then: (context: vscode.ExtensionContext, text: string) => void
+    activeTextEditorFactory: (
+      text: string,
+      languageId: string
+    ) => undefined | vscode.TextEditor,
+    then: (
+      context: vscode.ExtensionContext,
+      text: string,
+      languageId: string
+    ) => void
   ): void => {
     describe(description, () => {
       const subScenario = (
@@ -2105,9 +2164,9 @@ Example Identifier A is Example Identifier B.`
       ) => {
         scenario(
           description,
-          () => activeTextEditorFactory(text),
+          () => activeTextEditorFactory(text, `skitscript`),
           (diagnosticCollection, context) => {
-            then(context, text);
+            then(context, text, `skitscript`);
 
             expect(diagnosticCollection.delete).not.toHaveBeenCalled();
             expect(diagnosticCollection.set).toHaveBeenCalledTimes(1);
@@ -2118,6 +2177,20 @@ Example Identifier A is Example Identifier B.`
           }
         );
       };
+
+      scenario(
+        `non-skitscript`,
+        () => activeTextEditorFactory(`Example Text`, `non-skitscript`),
+        (diagnosticCollection, context) => {
+          then(context, `Example Text`, `non-skitscript`);
+
+          expect(diagnosticCollection.delete).toHaveBeenCalledTimes(1);
+          expect(diagnosticCollection.delete).toHaveBeenCalledWith(
+            `Example Text Document Uri`
+          );
+          expect(diagnosticCollection.set).not.toHaveBeenCalled();
+        }
+      );
 
       subScenario(
         `valid`,
@@ -2308,8 +2381,10 @@ Location: Example Background.
 
   diagnosticCollectionChangeScenario(
     `active text editor set during activation`,
-    (text) =>
-      ({ document: createTextDocument(text) } as unknown as vscode.TextEditor),
+    (text, languageId) =>
+      ({
+        document: createTextDocument(text, languageId),
+      } as unknown as vscode.TextEditor),
     () => {
       // Empty.
     }
@@ -2343,7 +2418,7 @@ Location: Example Background.
   diagnosticCollectionChangeScenario(
     `active text editor changed to non-undefined`,
     () => undefined,
-    (context, text) => {
+    (context, text, languageId) => {
       const onDidChangeActiveTextEditor = (
         context.subscriptions[0] as unknown as {
           readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
@@ -2357,7 +2432,7 @@ Location: Example Background.
       };
 
       onDidChangeActiveTextEditor.mockedOnDidChangeActiveTextEditor.callback({
-        document: createTextDocument(text),
+        document: createTextDocument(text, languageId),
       } as unknown as vscode.TextEditor);
     }
   );
@@ -2365,7 +2440,7 @@ Location: Example Background.
   diagnosticCollectionChangeScenario(
     `text document changed`,
     () => undefined,
-    (context, text) => {
+    (context, text, languageId) => {
       const onDidChangeTextDocument = (
         context.subscriptions[0] as unknown as {
           readonly mockedDisposableOf: ReadonlyArray<Record<string, unknown>>;
@@ -2379,7 +2454,7 @@ Location: Example Background.
       };
 
       onDidChangeTextDocument.mockedOnDidChangeTextDocument.callback({
-        document: createTextDocument(text),
+        document: createTextDocument(text, languageId),
       } as unknown as vscode.TextEditor);
     }
   );
@@ -2401,7 +2476,7 @@ Location: Example Background.
       };
 
       onDidCloseTextDocument.mockedOnDidCloseTextDocument.callback(
-        createTextDocument(`Example Text`)
+        createTextDocument(`Example Text`, `skitscript`)
       );
 
       expect(diagnosticCollection.delete).toHaveBeenCalledTimes(1);
