@@ -81,7 +81,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@skitscript/parser-nodejs": "0.0.6",
+    "@skitscript/parser-nodejs": "0.0.8",
     "optional-require": "1.1.8"
   }
 }
