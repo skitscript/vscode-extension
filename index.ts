@@ -490,17 +490,21 @@ export function activate(context: ExtensionContext): void {
     vscode.languages.createDiagnosticCollection(`skitscript`);
 
   const refreshDiagnostics = (document: TextDocument) => {
-    const parsed = parse(document.getText());
+    if (document.languageId === `skitscript`) {
+      const parsed = parse(document.getText());
 
-    if (parsed.type === `valid`) {
-      diagnosticCollection.set(
-        document.uri,
-        parsed.warnings.map(convertWarningOrErrorToDiagnostic)
-      );
+      if (parsed.type === `valid`) {
+        diagnosticCollection.set(
+          document.uri,
+          parsed.warnings.map(convertWarningOrErrorToDiagnostic)
+        );
+      } else {
+        diagnosticCollection.set(document.uri, [
+          convertWarningOrErrorToDiagnostic(parsed.error),
+        ]);
+      }
     } else {
-      diagnosticCollection.set(document.uri, [
-        convertWarningOrErrorToDiagnostic(parsed.error),
-      ]);
+      diagnosticCollection.delete(document.uri);
     }
   };
 
