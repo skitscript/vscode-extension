@@ -51,7 +51,7 @@ const renameProvider: RenameProvider = {
           (identifierInstance) =>
             identifierInstance.line === line &&
             identifierInstance.fromColumn <= column &&
-            identifierInstance.toColumn >= column
+            identifierInstance.toColumn + 1 >= column
         );
 
         if (identifierInstance === undefined) {
@@ -108,7 +108,7 @@ const renameProvider: RenameProvider = {
         (identifierInstance) =>
           identifierInstance.line === line &&
           identifierInstance.fromColumn <= column &&
-          identifierInstance.toColumn >= column
+          identifierInstance.toColumn + 1 >= column
       );
 
       if (identifierInstance === undefined) {
@@ -149,7 +149,7 @@ const referenceProvider: ReferenceProvider = {
         (identifierInstance) =>
           identifierInstance.line === line &&
           identifierInstance.fromColumn <= column &&
-          identifierInstance.toColumn >= column
+          identifierInstance.toColumn + 1 >= column
       );
 
       if (identifierInstance === undefined) {
@@ -216,7 +216,7 @@ const definitionProvider: DefinitionProvider = {
         (identifierInstance) =>
           identifierInstance.line === line &&
           identifierInstance.fromColumn <= column &&
-          identifierInstance.toColumn >= column
+          identifierInstance.toColumn + 1 >= column
       );
 
       if (identifierInstance === undefined) {

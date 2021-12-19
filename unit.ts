@@ -493,7 +493,7 @@ Location: Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.`
               ),
-              new Position(4, 30) as vscode.Position,
+              new Position(4, 31) as vscode.Position,
               ` \n \r \t Example Identifier C \n \r \t `,
               {} as vscode.CancellationToken
             );
@@ -605,7 +605,7 @@ Location: Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.`
               ),
-              new Position(4, 29) as vscode.Position,
+              new Position(4, 30) as vscode.Position,
               ` \n \r \t Example Identifier C \n \r \t `,
               {} as vscode.CancellationToken
             );
@@ -721,7 +721,7 @@ Location: Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.`
               ),
-              new Position(4, 30) as vscode.Position,
+              new Position(4, 31) as vscode.Position,
               {} as vscode.CancellationToken
             );
 
@@ -802,7 +802,7 @@ Location: Example Identifier A.
 Location: Example Identifier B.
 Location: Example Identifier A.`
               ),
-              new Position(4, 29) as vscode.Position,
+              new Position(4, 30) as vscode.Position,
               {} as vscode.CancellationToken
             );
 
@@ -942,7 +942,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
                 ),
-                new Position(5, 22) as vscode.Position,
+                new Position(5, 23) as vscode.Position,
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
@@ -1038,7 +1038,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
                 ),
-                new Position(5, 21) as vscode.Position,
+                new Position(5, 22) as vscode.Position,
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
@@ -1143,7 +1143,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
                 ),
-                new Position(3, 27) as vscode.Position,
+                new Position(3, 28) as vscode.Position,
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
@@ -1240,7 +1240,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
                 ),
-                new Position(2, 43) as vscode.Position,
+                new Position(2, 44) as vscode.Position,
                 { includeDeclaration: false },
                 {} as vscode.CancellationToken
               );
@@ -1325,7 +1325,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
                 ),
-                new Position(5, 22) as vscode.Position,
+                new Position(5, 23) as vscode.Position,
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
@@ -1429,7 +1429,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
                 ),
-                new Position(5, 21) as vscode.Position,
+                new Position(5, 22) as vscode.Position,
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
@@ -1546,7 +1546,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
                 ),
-                new Position(3, 27) as vscode.Position,
+                new Position(3, 28) as vscode.Position,
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
@@ -1655,7 +1655,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
                 ),
-                new Position(2, 43) as vscode.Position,
+                new Position(2, 44) as vscode.Position,
                 { includeDeclaration: true },
                 {} as vscode.CancellationToken
               );
@@ -1797,7 +1797,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
               ),
-              new Position(5, 22) as vscode.Position,
+              new Position(5, 23) as vscode.Position,
               {} as vscode.CancellationToken
             );
 
@@ -1882,7 +1882,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
               ),
-              new Position(5, 21) as vscode.Position,
+              new Position(5, 22) as vscode.Position,
               {} as vscode.CancellationToken
             );
 
@@ -1972,7 +1972,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
               ),
-              new Position(3, 27) as vscode.Position,
+              new Position(3, 28) as vscode.Position,
               {} as vscode.CancellationToken
             );
 
@@ -2062,7 +2062,7 @@ Jump to Example Identifier B.
 Jump to Example Identifier A.
 Example Identifier A is Example Identifier B.`
               ),
-              new Position(2, 43) as vscode.Position,
+              new Position(2, 44) as vscode.Position,
               {} as vscode.CancellationToken
             );
 
