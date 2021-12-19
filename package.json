@@ -9,7 +9,7 @@
   "engineStrict": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/skitscript/parser-nodejs"
+    "url": "https://github.com/skitscript/extension-nodejs"
   },
   "publishConfig": {
     "access": "public"
