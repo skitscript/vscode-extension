@@ -49,7 +49,7 @@
   "devDependencies": {
     "@skitscript/types-nodejs": "0.0.26",
     "@types/jasmine": "3.10.2",
-    "@types/node": "16.11.16",
+    "@types/node": "16.11.17",
     "@types/rewire": "2.5.28",
     "@types/vscode": "1.63.1",
     "@typescript-eslint/eslint-plugin": "5.8.0",
