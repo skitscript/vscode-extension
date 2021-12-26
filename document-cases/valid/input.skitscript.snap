@@ -88,30 +88,35 @@
 #                                           ^^ text.skitscript markup.italic.skitscript constant.character.escape.markdown
 #                                             ^^^^^ text.skitscript markup.italic.skitscript markup.other.skitscript
 #                                                  ^ text.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
->  This includes `inline \`code\\ segments` which can be inside ***`other-*sections* **formatted in other ways**`***.
+>  ***`This`*** includes `inline \`code\\ segments` which can be inside ***`other-*sections* **formatted in other ways**`***.
 #^^ text.skitscript
-#  ^^^^ text.skitscript markup.other.skitscript
-#      ^ text.skitscript
-#       ^^^^^^^^ text.skitscript markup.other.skitscript
-#               ^ text.skitscript
-#                ^ text.skitscript markup.inline.raw.string.skitscript punctuation.definition.raw.skitscript
-#                 ^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript markup.inline.raw.string.skitscript
-#                                          ^ text.skitscript
-#                                           ^^^^^ text.skitscript markup.other.skitscript
-#                                                ^ text.skitscript
-#                                                 ^^^ text.skitscript markup.other.skitscript
-#                                                    ^ text.skitscript
-#                                                     ^^ text.skitscript markup.other.skitscript
-#                                                       ^ text.skitscript
-#                                                        ^^^^^^ text.skitscript markup.other.skitscript
-#                                                              ^ text.skitscript
-#                                                               ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
-#                                                                 ^ text.skitscript markup.bold.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
-#                                                                  ^ text.skitscript markup.bold.skitscript markup.italic.skitscript markup.inline.raw.string.skitscript punctuation.definition.raw.skitscript
-#                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript markup.bold.skitscript markup.italic.skitscript markup.inline.raw.string.skitscript
-#                                                                                                                ^ text.skitscript markup.bold.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
-#                                                                                                                 ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
-#                                                                                                                   ^ text.skitscript markup.other.skitscript
+#  ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#    ^ text.skitscript markup.bold.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#     ^ text.skitscript markup.bold.skitscript markup.italic.skitscript markup.inline.raw.string.skitscript punctuation.definition.raw.skitscript
+#      ^^^^^ text.skitscript markup.bold.skitscript markup.italic.skitscript markup.inline.raw.string.skitscript
+#           ^ text.skitscript markup.bold.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#            ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#              ^ text.skitscript
+#               ^^^^^^^^ text.skitscript markup.other.skitscript
+#                       ^ text.skitscript
+#                        ^ text.skitscript markup.inline.raw.string.skitscript punctuation.definition.raw.skitscript
+#                         ^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript markup.inline.raw.string.skitscript
+#                                                  ^ text.skitscript
+#                                                   ^^^^^ text.skitscript markup.other.skitscript
+#                                                        ^ text.skitscript
+#                                                         ^^^ text.skitscript markup.other.skitscript
+#                                                            ^ text.skitscript
+#                                                             ^^ text.skitscript markup.other.skitscript
+#                                                               ^ text.skitscript
+#                                                                ^^^^^^ text.skitscript markup.other.skitscript
+#                                                                      ^ text.skitscript
+#                                                                       ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#                                                                         ^ text.skitscript markup.bold.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#                                                                          ^ text.skitscript markup.bold.skitscript markup.italic.skitscript markup.inline.raw.string.skitscript punctuation.definition.raw.skitscript
+#                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript markup.bold.skitscript markup.italic.skitscript markup.inline.raw.string.skitscript
+#                                                                                                                        ^ text.skitscript markup.bold.skitscript markup.italic.skitscript punctuation.definition.italic.skitscript
+#                                                                                                                         ^^ text.skitscript markup.bold.skitscript punctuation.definition.bold.skitscript
+#                                                                                                                           ^ text.skitscript markup.other.skitscript
 >  All \*such\* \`syntax\` \*\*can\*\* be \\es\\\\caped.
 #^^ text.skitscript
 #  ^^^ text.skitscript markup.other.skitscript
