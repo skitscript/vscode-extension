@@ -47,7 +47,7 @@
   },
   "publisher": "skitscript",
   "devDependencies": {
-    "@skitscript/types-nodejs": "0.0.25",
+    "@skitscript/types-nodejs": "0.0.26",
     "@types/jasmine": "3.10.2",
     "@types/node": "16.11.14",
     "@types/rewire": "2.5.28",
@@ -81,7 +81,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@skitscript/parser-nodejs": "0.0.10",
+    "@skitscript/parser-nodejs": "0.0.11",
     "optional-require": "1.1.8"
   }
 }
