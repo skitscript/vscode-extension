@@ -2,6 +2,10 @@
 #^^^^^^^^ text.skitscript keyword.other.location
 #        ^ text.skitscript keyword.operator.colon.skitscript
 #         ^ text.skitscript
-#          ^^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+#          ^^^^^^^ text.skitscript variable.other.skitscript
+#                 ^ text.skitscript
+#                  ^^^^^ text.skitscript keyword.other.enter
+#                       ^ text.skitscript
+#                        ^^^^^^^^^^ text.skitscript variable.other.skitscript
 #                                  ^^ text.skitscript keyword.operator.period.skitscript
 >
