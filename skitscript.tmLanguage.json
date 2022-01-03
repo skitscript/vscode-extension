@@ -122,7 +122,7 @@
       "name": "keyword.other.are"
     },
     {
-      "match": "\\b(?=.*[^!?'\"{}@*\/\\\\&#%`+<=>|$.\\-\\s].*)(?:(?!(?:and|or|when|not|is|are|enters|enter|exits|exit|leads|to|set|clear|jump)\\b)[^,()\\s:~]+)(?:\\s+(?!(?:and|or|when|not|is|are|enters|enter|exits|exit|leads|to|set|clear|jump)\\b)[^,()\\s:~]+)*\\b",
+      "match": "(?i)\\b(?=.*[^!?'\"{}@*\/\\\\&#%`+<=>|$.\\-\\s].*)(?:(?!(?:and|or|when|not|is|are|enters|enter|exits|exit|leads|to|set|clear|jump)\\b)[^,()\\s:~]+)(?:\\s+(?!(?:and|or|when|not|is|are|enters|enter|exits|exit|leads|to|set|clear|jump)\\b)[^,()\\s:~]+)*\\b",
       "name": "variable.other.skitscript"
     }
   ],
