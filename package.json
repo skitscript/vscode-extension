@@ -22,7 +22,6 @@
   "activationEvents": [
     "onLanguage:skitscript"
   ],
-  "main": ".",
   "contributes": {
     "languages": [
       {
