@@ -51,7 +51,7 @@
     "@types/jasmine": "3.10.2",
     "@types/node": "16.11.20",
     "@types/rewire": "2.5.28",
-    "@types/vscode": "1.63.1",
+    "@types/vscode": "1.77.0",
     "@typescript-eslint/eslint-plugin": "5.10.0",
     "@typescript-eslint/parser": "5.10.0",
     "cpy-cli": "3.1.1",
