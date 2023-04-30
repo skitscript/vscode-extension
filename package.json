@@ -19,6 +19,10 @@
   "categories": [
     "Programming Languages"
   ],
+  "activationEvents": [
+    "onLanguage:skitscript"
+  ],
+  "main": "index.js",
   "contributes": {
     "languages": [
       {
