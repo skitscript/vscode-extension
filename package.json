@@ -19,7 +19,6 @@
   "categories": [
     "Programming Languages"
   ],
-  "main": "index.js",
   "contributes": {
     "languages": [
       {
