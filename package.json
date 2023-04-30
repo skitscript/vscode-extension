@@ -71,7 +71,7 @@
     "buildJasmine": "jasmine --config=jasmine.json",
     "buildC8": "c8 --check-coverage --all --exclude \"submodules\" --exclude \"**/*.ts\" --exclude \"**/unit.*\" --lines 100 --functions 100 --branches 100 --statements 100 npm run-script buildJasmine",
     "testCleanCases": "del-cli \"document-cases/*/input.skitscript\"",
-    "testCopyCases": "cpy --parents --cwd=\"submodules/skitscript/parser-test-suite/document-cases\" \"*/input.skitscript\" \"../../../../document-cases\"",
+    "testCopyCases": "cpy --cwd=\"submodules/skitscript/parser-test-suite/document-cases\" \"./*/input.skitscript\" \"document-cases\"",
     "testSnapshot": "vscode-tmgrammar-snap --scope text.skitscript --grammar \"skitscript.tmLanguage.json\" \"document-cases/*/input.skitscript\""
   },
   "sideEffects": false,
