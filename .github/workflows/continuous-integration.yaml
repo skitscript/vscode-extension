@@ -27,7 +27,7 @@ jobs:
     - run: npm run-script testSnapshot
     - run: npm run-script buildLint
     - run: npm run-script buildTypeScript
-    - run: npm run-script buildNyc
+    - run: npm run-script buildC8
   release:
     if: github.event_name == 'release' && github.event.action == 'created'
     needs: test

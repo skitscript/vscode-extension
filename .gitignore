@@ -2,5 +2,5 @@
 node_modules
 .~*#
 document-cases/*/input.skitscript
-.nyc_output
+coverage
 *.js
