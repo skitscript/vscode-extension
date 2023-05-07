@@ -79,7 +79,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@skitscript/parser-nodejs": "^1.0.2",
+    "@skitscript/parser-nodejs": "^1.0.3",
     "optional-require": "^1.1.8"
   }
 }
