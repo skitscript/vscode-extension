@@ -63,7 +63,7 @@
     "rewire": "^6.0.0",
     "typescript": "^5.4.5",
     "vscode-tmgrammar-test": "^0.1.3",
-    "@skitscript/parser-nodejs": "2.0.0",
+    "@skitscript/parser-nodejs": "2.0.2",
     "optional-require": "^1.1.8",
     "vsce": "^2.15.0"
   },
