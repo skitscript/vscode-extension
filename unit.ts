@@ -9,11 +9,11 @@ const cancellationToken: vscode.CancellationToken = {
 }
 
 class Range {
-  constructor (readonly start: Position, readonly end: Position) {}
+  constructor (readonly start: Position, readonly end: Position) { }
 }
 
 class Disposable {
-  constructor (public readonly mockedDisposableOf: ReadonlyArray<{ dispose: () => unknown }>) {}
+  constructor (public readonly mockedDisposableOf: ReadonlyArray<{ dispose: () => unknown }>) { }
 
   static from (...disposableLikes: Array<{ dispose: () => unknown }>): Disposable {
     return new Disposable(
@@ -23,11 +23,11 @@ class Disposable {
 }
 
 class Position {
-  constructor (readonly line: number, readonly character: number) {}
+  constructor (readonly line: number, readonly character: number) { }
 }
 
 class Location {
-  constructor (readonly uri: string, readonly range: Range) {}
+  constructor (readonly uri: string, readonly range: Range) { }
 }
 
 class WorkspaceEdit {
@@ -43,7 +43,7 @@ class WorkspaceEdit {
 }
 
 class DiagnosticRelatedInformation {
-  constructor (public location: Location, public message: string) {}
+  constructor (public location: Location, public message: string) { }
 }
 
 class Diagnostic {
@@ -67,7 +67,7 @@ class Diagnostic {
     public severity?:
     | 'Test Warning DiagnosticSeverity'
     | 'Test Error DiagnosticSeverity'
-  ) {}
+  ) { }
 }
 
 const createDiagnostic = (
@@ -170,8 +170,7 @@ describe('on activation', () => {
     ) => void
   ): void => {
     it(description, () => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const extension = rewire('.')
+      const extension = rewire('./index.js')
 
       const diagnosticCollection = {
         set: jasmine.createSpy('diagnosticCollection.set'),
@@ -264,34 +263,44 @@ describe('on activation', () => {
       })
 
       const context = {
+        languageModelAccessInformation: {
+          onDidChange (): vscode.Disposable {
+            fail('Unexpected call to languageModelAccessInformation.canSendRequest.')
+            throw new Error('Unexpected call to languageModelAccessInformation.canSendRequest.')
+          },
+          canSendRequest (): boolean | undefined {
+            fail('Unexpected call to languageModelAccessInformation.canSendRequest.')
+            throw new Error('Unexpected call to languageModelAccessInformation.canSendRequest.')
+          }
+        },
         subscriptions: [],
         workspaceState: {
           keys () {
-            fail('Unexpected call to Memento.keys.')
-            throw new Error('Unexpected call to Memento.keys.')
+            fail('Unexpected call to workspaceState.keys.')
+            throw new Error('Unexpected call to workspaceState.keys.')
           },
           get () {
-            fail('Unexpected call to Memento.get.')
-            throw new Error('Unexpected call to Memento.get.')
+            fail('Unexpected call to workspaceState.get.')
+            throw new Error('Unexpected call to workspaceState.get.')
           },
           async update () {
-            fail('Unexpected call to Memento.update.')
+            fail('Unexpected call to workspaceState.update.')
           }
         },
         globalState: {
           keys () {
-            fail('Unexpected call to Memento.keys.')
-            throw new Error('Unexpected call to Memento.keys.')
+            fail('Unexpected call to globalState.keys.')
+            throw new Error('Unexpected call to globalState.keys.')
           },
           setKeysForSync () {
-            fail('Unexpected call to Memento.setKeysForSync.')
+            fail('Unexpected call to globalState.setKeysForSync.')
           },
           get () {
-            fail('Unexpected call to Memento.get.')
-            throw new Error('Unexpected call to Memento.get.')
+            fail('Unexpected call to globalState.get.')
+            throw new Error('Unexpected call to globalState.get.')
           },
           async update () {
-            fail('Unexpected call to Memento.update.')
+            fail('Unexpected call to globalState.update.')
           }
         },
         extensionPath: 'Example Extension Path',
@@ -306,7 +315,7 @@ describe('on activation', () => {
         secrets: {
           async get () {
             fail('Unexpected call to secrets.get.')
-            return undefined
+            throw new Error('Unexpected call to secrets.get.')
           },
           async store () {
             fail('Unexpected call to secrets.store.')
@@ -332,7 +341,7 @@ describe('on activation', () => {
           },
           get () {
             fail('Unexpected call to environmentVariableCollection.get.')
-            return undefined
+            throw new Error('Unexpected call to environmentVariableCollection.get.')
           },
           forEach () {
             fail('Unexpected call to environmentVariableCollection.forEach.')
@@ -345,7 +354,12 @@ describe('on activation', () => {
           },
           * [Symbol.iterator] () {
             fail('Unexpected call to environmentVariableCollection.[Symbol.iterator].')
-          }
+          },
+          getScoped (): vscode.EnvironmentVariableCollection {
+            fail('Unexpected call to environmentVariableCollection.getScoped.')
+            throw new Error('Unexpected call to environmentVariableCollection.getScoped.')
+          },
+          description: 'Example Environment Variable Collection Description'
         },
         globalStorageUri: {} as unknown as vscode.Uri,
         storageUri: {} as unknown as vscode.Uri,

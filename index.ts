@@ -1,4 +1,4 @@
-import { identifierIsValid, parse } from '@skitscript/parser-nodejs'
+import { identifierIsValid, parse, type Error, type Warning } from '@skitscript/parser-nodejs'
 import type {
   ExtensionContext,
   RenameProvider,
@@ -19,7 +19,6 @@ import type {
   TextEditor
 } from 'vscode'
 import { optionalRequire } from 'optional-require'
-import type { Warning, Error } from '@skitscript/types-nodejs'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const vscode = optionalRequire('vscode')

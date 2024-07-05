@@ -27,7 +27,8 @@ jobs:
     - run: npm run-script testSnapshot
     - run: npm run-script buildLint
     - run: npm run-script buildTypeScript
-    - run: npm run-script buildC8
+    - run: npm run-script buildEsbuild
+    - run: npm run-script buildJasmine
   release:
     if: github.event_name == 'release' && github.event.action == 'created'
     needs: test
@@ -36,8 +37,7 @@ jobs:
     - uses: actions/checkout@v3
     - run: npm ci
     - run: npm run-script buildTypeScript
+    - run: npm run-script buildEsbuild
     - run: rm -r node_modules
-    - run: npm ci --only=production --no-optional
-    - run: npm i -g vsce
     - run: "sed -i \"s/\\\"version\\\": \\\"0.0.0\\\",/\\\"version\\\": \\\"${GITHUB_REF/refs\\/tags\\/v/}\\\",/g\" package.json"
-    - run: vsce publish -p ${{ secrets.VSCE_TOKEN }}
+    - run: npx @vscode/vsce publish -p ${{ secrets.VSCE_TOKEN }}
