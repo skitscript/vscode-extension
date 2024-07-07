@@ -16,12 +16,18 @@ import type {
   Definition,
   DefinitionLink,
   Diagnostic,
-  TextEditor
+  TextEditor,
+  TextDocumentChangeEvent
 } from 'vscode'
-import { optionalRequire } from 'optional-require'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const vscode = optionalRequire('vscode')
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+let vscode: typeof import('vscode')
+
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  vscode = require('vscode')
+} catch (e) {
+}
 
 const documentSelector: DocumentSelector = {
   scheme: 'file',
@@ -515,8 +521,8 @@ export function activate (context: ExtensionContext): void {
         definitionProvider
       ),
       diagnosticCollection,
-      vscode.workspace.onDidChangeTextDocument((textEditor: TextEditor) => {
-        refreshDiagnostics(textEditor.document)
+      vscode.workspace.onDidChangeTextDocument((e: TextDocumentChangeEvent) => {
+        refreshDiagnostics(e.document)
       }),
       vscode.workspace.onDidCloseTextDocument((document: TextDocument) => {
         diagnosticCollection.delete(document.uri)
