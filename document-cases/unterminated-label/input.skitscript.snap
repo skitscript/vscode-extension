@@ -1,0 +1,5 @@
+>~ Test Unterminated Label
+#^ text.skitscript keyword.operator.tilde.skitscript
+# ^ text.skitscript
+#  ^^^^^^^^^^^^^^^^^^^^^^^ text.skitscript variable.other.skitscript
+>
