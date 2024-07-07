@@ -80,5 +80,6 @@
     "testSnapshot": "vscode-tmgrammar-snap --scope text.skitscript --grammar \"skitscript.tmLanguage.json\" \"document-cases/*/input.skitscript\""
   },
   "sideEffects": false,
-  "main": "index.js"
+  "main": "index.js",
+  "browser": "index.js"
 }
