@@ -55,7 +55,7 @@
     "cpy-cli": "^4.2.0",
     "del-cli": "^5.1.0",
     "esbuild": "^0.23.0",
-    "eslint": "^8.39.0",
+    "eslint": "^9.0.0",
     "eslint-config-standard-with-typescript": "^34.0.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.7.0",
